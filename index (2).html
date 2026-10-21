@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rechtschreib-Labor – Wörter untersuchen &amp; Rechtschreibstrategien anwenden</title>
+<meta name="description" content="Rechtschreib-Labor: Ein Lernspiel der Reihe Förderfreude Games. Kinder untersuchen Wörter und wenden Rechtschreibstrategien an: Verlängern, Ableiten, Silben untersuchen und Wortbausteine erkennen.">
+<meta name="theme-color" content="#2f6f7a">
+<style>
+:root{--badge:calc(84px + env(safe-area-inset-bottom,0px));
+  --cream:#fbf3e1; --paper:#fffaf0; --ink:#3a3226; --ink2:#5a4a3a; --brown:#7a5a3a;
+  --pet:#2f6f7a; --pet-d:#1f4f58; --pet-l:#cfe3e5; --sage:#8fa888; --sage-l:#dbe8d6; --sage-d:#3f6247; --rose:#d98a92; --rose-l:#f6dcde; --rose-d:#98535a;
+  --terr:#d97e55; --terr-l:#f5d3c4; --terr-d:#a2492a; --must:#eec14a; --must-l:#faecb9; --must-d:#7f5c12; --blue:#8fb9c9; --blue-l:#dcebf1; --blue-d:#3d6a80;
+  --lav:#c5b8dd; --lav-l:#ece7f6; --lav-d:#5d4b86; --ok:#3f7d57; --font:"Nunito","Quicksand","Trebuchet MS","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--font);color:var(--ink);background:var(--cream);-webkit-text-size-adjust:100%;overflow:hidden;font-size:clamp(15px,.55vw + 11px,21px);line-height:1.3}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+svg{display:block}
+[hidden]{display:none!important}
+:focus-visible{outline:4px solid var(--pet);outline-offset:3px;border-radius:.6rem;box-shadow:0 0 0 7px var(--must)}
+.bgsvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.scr{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Startseite: Laborlandschaft ---------- */
+#start{background:var(--cream);color:var(--ink)}
+.top{position:relative;z-index:2;display:flex;align-items:center;gap:1rem;padding:.7rem 1rem .2rem;flex:none}
+.logo{margin:0;font-size:clamp(1.6rem,3.2vw + .6rem,3.2rem);line-height:1;font-weight:900;letter-spacing:.01em;color:var(--pet-d);text-shadow:0 3px 0 rgba(255,255,255,.7)}
+.logo span{color:var(--terr-d)}
+.tagline{margin:.15rem 0 0;font-size:clamp(.9rem,.8vw + .55rem,1.35rem);color:var(--ink2);font-weight:700}
+.top .titles{flex:1;min-width:0}
+.tools{display:flex;gap:.5rem;flex:none}
+.ibtn{width:2.9rem;height:2.9rem;min-width:44px;min-height:44px;border-radius:50%;border:3px solid var(--pet-d);background:var(--paper);color:var(--pet-d);display:grid;place-items:center;font-weight:900;font-size:1.35rem;padding:0;box-shadow:0 3px 0 rgba(31,79,88,.35)}
+.ibtn:hover{background:var(--must-l)}
+.ibtn svg{width:1.5rem;height:1.5rem}
+.ibtn[aria-pressed=false] .wave{display:none}
+.ibtn[aria-pressed=true] .slash{display:none}
+.map{position:relative;flex:1;min-height:0;z-index:1}
+.deco{position:absolute;pointer-events:none}
+.deco.kid1{width:clamp(2.6rem,6vw,5.4rem);right:2%;bottom:2%}
+.deco.kid2{width:clamp(2.4rem,5.4vw,4.8rem);left:2%;bottom:2%}
+.stn{position:absolute;left:var(--x);top:var(--y);width:var(--s);transform:translate(-50%,-50%);background:none;border:0;padding:0;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:.2rem;text-align:center;border-radius:1.2rem;--x:var(--lx);--y:var(--ly);--s:var(--ls)}
+.stn svg.art{width:100%;height:auto;transition:transform .25s ease;filter:drop-shadow(0 5px 6px rgba(80,60,40,.3))}
+.stn:hover svg.art,.stn:focus-visible svg.art{transform:scale(1.07) rotate(-2deg)}
+.stn .lbl{background:var(--paper);color:var(--pet-d);font-weight:900;font-size:clamp(.8rem,.5vw + .55rem,1.2rem);line-height:1.12;padding:.26rem .7rem;border-radius:999px;border:3px solid var(--pet);box-shadow:0 3px 0 rgba(31,79,88,.3);width:max-content;max-width:min(175%,14rem)}
+.stn .num{position:absolute;top:2%;left:4%;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--must);color:var(--ink);font-weight:900;display:grid;place-items:center;border:3px solid var(--paper);font-size:1rem}
+.stn:nth-of-type(2n) .lbl{border-color:var(--rose)}.stn:nth-of-type(3n) .lbl{border-color:var(--terr)}.stn:nth-of-type(4n) .lbl{border-color:var(--blue-d)}
+.st-foot{position:relative;z-index:2;flex:none;text-align:center;font-size:.85rem;color:var(--ink2);font-weight:700;padding:.1rem .5rem calc(.35rem + var(--badge))}
+@media (max-aspect-ratio:1/1){.stn{--x:var(--px);--y:var(--py);--s:var(--ps)}}
+@media (max-aspect-ratio:1/1) and (max-width:480px){.stn .lbl{max-width:none;white-space:nowrap;font-size:.8rem;padding:.2rem .5rem}.stn .num{width:1.6rem;height:1.6rem;font-size:.85rem}.tagline{display:none}.top{padding:.55rem .8rem .1rem}}
+
+/* ---------- Dialoge ---------- */
+dialog{border:0;padding:0;background:transparent;color:var(--ink);max-width:none;max-height:none;overflow:visible}
+dialog::backdrop{background:rgba(31,60,66,.65)}
+.panel{background:var(--paper);border:5px solid var(--pet);border-radius:1.6rem;box-shadow:0 10px 0 rgba(0,0,0,.2);padding:1.1rem 1.3rem 1.2rem;width:min(92vw,36rem);max-height:calc(100dvh - var(--badge) - 1.5rem);overflow:auto}
+.panel h2{margin:.1rem 0 .3rem;font-size:1.55rem;color:var(--pet-d);line-height:1.1}
+.panel p{margin:.3rem 0;font-size:1.02rem}
+.lv-row{display:grid;gap:.6rem;margin:.8rem 0 .5rem}
+.lvbtn{display:flex;align-items:center;gap:.8rem;padding:.65rem 1rem;border-radius:1.1rem;border:4px solid var(--pet);background:var(--pet-l);font-weight:900;font-size:1.2rem;text-align:left;min-height:3.4rem;color:var(--pet-d);box-shadow:0 4px 0 rgba(31,79,88,.35)}
+.lvbtn:hover,.lvbtn:focus-visible{background:var(--must-l)}
+.lvbtn small{display:block;font-weight:700;font-size:.88rem;color:var(--ink2)}
+.stars{display:flex;gap:.15rem;flex:none}.stars svg{width:1.4rem;height:1.4rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.6rem 1.3rem;min-height:3rem;border-radius:999px;border:4px solid var(--pet-d);background:var(--must);color:var(--ink);font-weight:900;font-size:1.15rem;box-shadow:0 4px 0 rgba(31,79,88,.45)}
+.btn:hover{filter:brightness(1.05)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(31,79,88,.45)}
+.btn.sec{background:var(--pet-l);color:var(--pet-d)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.dlg-act{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.6rem}
+.help-list{margin:.4rem 0 .6rem;padding-left:1.2rem}.help-list li{margin:.25rem 0}
+.voice{font-size:.9rem;color:var(--ink2);background:var(--pet-l);border-radius:.8rem;padding:.5rem .7rem;margin-top:.6rem}
+
+/* ---------- Spielbildschirm ---------- */
+#game{background:linear-gradient(180deg,#e6efdf 0%,#f3efdc 40%,#fbf3e1 100%)}
+.g-head{position:relative;z-index:3;flex:none;display:flex;align-items:center;gap:.7rem;padding:.4rem .7rem;background:var(--pet);color:#fff;border-bottom:4px solid var(--pet-d)}
+.g-head .ibtn{width:2.6rem;height:2.6rem}
+.g-title{flex:none;min-width:0;max-width:20rem;line-height:1.1}
+.g-title b{display:block;font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-title span{font-size:.82rem;color:#d7ecee;font-weight:700}
+.tubes{position:relative;flex:1;min-width:0;height:3.2rem;margin:0 .3rem;display:flex;justify-content:center;align-items:flex-end;gap:clamp(.25rem,1.4vw,.9rem)}
+.tubes .tube{width:1.5rem;height:3.1rem;flex:none;position:relative;opacity:.9}
+.tubes .tube svg{width:100%;height:100%;overflow:visible}
+.tube .liq{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .7s ease}
+.tube.done .liq{transform:scaleY(1)}
+.tube.cur{filter:drop-shadow(0 0 4px #eec14a)}.tube.cur::before{content:"";position:absolute;left:50%;top:-.3rem;margin-left:-.28rem;border:.3rem solid transparent;border-top-color:var(--must)}
+.stage{position:relative;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:clamp(.4rem,1.6dvh,1.1rem);padding:clamp(.4rem,1.6dvh,1rem) clamp(.5rem,2vw,1.6rem);overflow-x:hidden;overflow-y:auto}
+.stage>:first-child{margin-top:auto}.stage>:last-child{margin-bottom:auto}
+.stage-bg{position:absolute;right:1.5%;top:1%;width:clamp(4.5rem,15dvh,9rem);opacity:.22;pointer-events:none;z-index:0}
+.stage>*{position:relative;z-index:1}
+.stage>.stage-bg{position:absolute;z-index:0}
+.prompt{display:flex;align-items:center;gap:.5rem;font-weight:900;font-size:clamp(1.1rem,1.1vw + .75rem,1.9rem);color:var(--pet-d);text-align:center;line-height:1.15;max-width:60rem;outline:none}
+.prompt:focus-visible{outline:none;box-shadow:none}
+.prompt small{display:block;font-size:.62em;font-weight:700;color:var(--ink2);margin-top:.2rem}
+.prompt q{quotes:"„" "“";color:var(--terr-d)}
+.g-foot{position:relative;z-index:3;flex:none;display:flex;align-items:center;gap:.7rem;padding:.45rem .8rem calc(.5rem + var(--badge));background:rgba(255,250,240,.96);border-top:4px solid var(--sage)}
+#fb{flex:1;min-width:0;min-height:2.9rem;display:flex;align-items:center;gap:.5rem;font-size:clamp(1rem,.6vw + .75rem,1.35rem);line-height:1.2;padding:.3rem .8rem;border-radius:1.1rem;background:var(--pet-l);border:3px solid transparent}
+#fb .fh{font-weight:900;color:var(--pet-d);margin-right:.3rem}
+#fb.ok{background:var(--sage-l);border-color:var(--sage);color:#26402c}#fb.ok .fh{color:#256b42}
+#fb.bad{background:var(--terr-l);border-color:var(--terr);color:#5a2a18}#fb.bad .fh{color:#8a3a1f}
+#fb.hint{background:var(--must-l);border-color:var(--must);color:#5b4410}#fb.hint .fh{color:var(--must-d)}
+.act{display:flex;gap:.6rem;flex:none}
+.hintbtn{flex:none;display:inline-flex;align-items:center;gap:.4rem;min-height:max(44px,2.9rem);min-width:44px;padding:.3rem .9rem;border-radius:999px;border:3px solid var(--must-d);background:var(--must-l);color:var(--must-d);font-weight:900;font-size:1.05rem}
+.hintbtn svg{width:1.4rem;height:1.4rem}
+.hintbtn.nudge{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{box-shadow:0 0 0 0 rgba(238,193,74,.0)}50%{box-shadow:0 0 0 .45rem rgba(238,193,74,.55)}}
+.spk{display:grid;place-items:center;width:2.2rem;height:2.2rem;min-width:44px;min-height:44px;padding:0;border-radius:50%;border:3px solid var(--pet);background:var(--pet-l);color:var(--pet-d);flex:none;position:relative}
+.spk svg{width:1.15rem;height:1.15rem}.spk .slash{display:none}
+.spk:hover{background:var(--must-l)}
+body.nosound .spk{display:none}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* Gemeinsame Bausteine */
+.sentence{font-size:clamp(1.2rem,1.1vw + 1.6dvh,2.3rem);font-weight:800;line-height:1.5;text-align:center;max-width:52rem;display:flex;flex-wrap:wrap;gap:.1rem .35rem;justify-content:center;align-items:center;color:var(--ink)}
+.sentence .gap{display:inline-block;min-width:3.4rem;border-bottom:4px solid var(--pet);color:transparent;user-select:none}
+.wordbox{display:flex;align-items:center;justify-content:center;gap:.1rem;font-weight:900;font-size:clamp(1.9rem,4.4dvh + .6rem,3.6rem);color:var(--pet-d);background:var(--paper);border:4px solid var(--pet);border-radius:1.2rem;padding:.2rem 1rem;box-shadow:0 4px 0 rgba(31,79,88,.28);min-height:3.4rem}
+.wordbox .hole{display:inline-block;min-width:1.5ch;text-align:center;border-bottom:5px solid var(--terr);color:var(--terr-d);margin:0 .1rem}
+.wordbox .hole.filled{border-bottom-color:var(--ok);color:var(--ok)}
+.wordbox .part-v{color:var(--rose-d)}.wordbox .part-s{color:var(--pet-d)}.wordbox .part-e{color:var(--must-d)}
+.opt{display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:3.2rem;min-width:44px;padding:.35rem 1rem;border-radius:1.1rem;border:4px solid var(--pet);background:var(--paper);font-weight:900;font-size:clamp(1.15rem,.8vw + 1.7dvh,1.9rem);color:var(--pet-d);box-shadow:0 4px 0 rgba(31,79,88,.28);overflow-wrap:anywhere}
+.opt:hover{background:var(--must-l)}
+.opt.ok{border-color:var(--ok);background:var(--sage-l)}
+.opt.tried{border-style:dashed;color:#566566;background:#eef0ea;border-color:#8a9a9b}
+.opts{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;max-width:48rem}
+.opts.letters .opt{min-width:3.4rem;font-size:clamp(1.5rem,1.4vw + 1rem,2.4rem)}
+.stepline{font-weight:800;color:var(--ink2);text-align:center;font-size:clamp(1rem,.6vw + .8rem,1.4rem)}
+.stepline b{color:var(--terr-d)}
+.helperbox{display:inline-flex;align-items:center;gap:.4rem;font-weight:900;color:var(--sage-d);background:var(--sage-l);border:3px solid var(--sage);border-radius:999px;padding:.15rem .9rem}
+.example{background:var(--blue-l);border:3px dashed var(--blue-d);border-radius:1rem;padding:.3rem .9rem;font-weight:800;color:var(--blue-d);text-align:center;font-size:clamp(.95rem,.5vw + .75rem,1.25rem)}
+.si{width:2rem;height:2rem;flex:none}
+.stratrow{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;max-width:56rem}
+.sbtn{display:flex;align-items:center;gap:.6rem;min-height:3.4rem;padding:.3rem 1rem .3rem .6rem;border-radius:1.1rem;border:4px solid var(--pet);background:var(--paper);font-weight:900;font-size:clamp(1rem,.7vw + .8rem,1.5rem);color:var(--pet-d);text-align:left;box-shadow:0 4px 0 rgba(31,79,88,.28)}
+.sbtn:hover{background:var(--must-l)}.sbtn.ok{border-color:var(--ok);background:var(--sage-l)}.sbtn.tried{border-style:dashed;color:#566566;background:#eef0ea;border-color:#8a9a9b}
+.sbtn small{display:block;font-weight:700;font-size:.78em;color:var(--ink2)}
+.sbtn .si{width:2.4rem;height:2.4rem}
+.probe{background:var(--paper);border:4px dashed var(--terr);border-radius:1.2rem;padding:.4rem 1rem;text-align:center;max-width:44rem}
+.chosen{display:inline-flex;align-items:center;gap:.5rem;font-weight:900;color:var(--sage-d);background:var(--sage-l);border:3px solid var(--sage);border-radius:999px;padding:.1rem .9rem .1rem .5rem}
+/* Satz mit antippbaren Wörtern */
+.tok{min-height:44px;min-width:44px;padding:.1rem .55rem;border-radius:.9rem;border:3px solid transparent;background:var(--paper);font:inherit;font-weight:800;color:var(--ink);box-shadow:0 3px 0 rgba(58,50,38,.2)}
+.tok:hover{background:var(--must-l);border-color:var(--must-d)}
+.tok.tried{border-style:dashed;border-color:var(--ink2);color:#5a4a3a;background:#eef0ea}
+.tok.found{border-color:var(--terr);background:var(--terr-l)}
+.tok.fixed{border-color:var(--ok);background:var(--sage-l)}
+/* Karten und Fächer */
+.slots{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.slot{min-width:3.4rem;min-height:3.4rem;padding:.2rem .7rem;border-radius:1rem;border:4px dashed var(--pet);background:rgba(255,255,255,.6);display:grid;place-items:center;font-weight:900;font-size:clamp(1.15rem,1vw + .85rem,1.9rem);color:var(--pet-d)}
+button.slot.filled{border-style:solid;background:var(--paper);box-shadow:0 4px 0 rgba(31,79,88,.28)}
+.slot.ok{border-color:var(--ok);background:var(--sage-l)}
+.slot .rl{display:block;font-size:.5em;font-weight:800;color:var(--ink2);line-height:1}
+.cards{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;max-width:48rem}
+.card{min-height:3.4rem;min-width:44px;padding:.3rem .9rem;border-radius:1rem;border:4px solid var(--pet);background:var(--paper);font-weight:900;font-size:clamp(1.15rem,1vw + .85rem,1.9rem);color:var(--pet-d);box-shadow:0 4px 0 rgba(31,79,88,.28)}
+.card:hover{background:var(--must-l)}
+.card.used{visibility:hidden}
+.card .rl{display:block;font-size:.5em;font-weight:800;color:var(--ink2);line-height:1.1}
+/* Buchstaben antippen (Schnitt setzen) */
+.lets{display:flex;justify-content:center;gap:0;flex-wrap:nowrap}
+.let{width:max(44px,2.3rem);height:3.6rem;flex:none;padding:0;border:0;background:var(--paper);border-top:4px solid var(--pet);border-bottom:4px solid var(--pet);font-weight:900;font-size:clamp(1.5rem,1.4vw + 1rem,2.4rem);color:var(--pet-d);position:relative}
+.let:first-child{border-left:4px solid var(--pet);border-radius:1rem 0 0 1rem}
+.let:last-child{border-right:4px solid var(--pet);border-radius:0 1rem 1rem 0}
+.let:hover{background:var(--must-l)}
+.let.cut::after{content:"";position:absolute;right:-3px;top:-10px;bottom:-10px;width:5px;background:var(--terr);border-radius:3px;z-index:2}
+.let.tried{background:#eef0ea;color:#5f6f70}
+.legend{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;font-weight:800;font-size:.95rem;color:var(--ink2)}
+.legend i{display:inline-block;width:.9rem;height:.9rem;border-radius:3px;vertical-align:-.1rem;margin-right:.25rem;border:2px solid rgba(58,50,38,.4)}
+/* Verbindungsstation */
+.conn{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2.2rem,12vw,9rem);width:min(100%,46rem);flex:none}
+.conn .col{display:flex;flex-direction:column;gap:clamp(.5rem,1.8dvh,1rem);justify-content:center}
+.port{display:flex;align-items:center;justify-content:center;width:100%;min-height:3.4rem;padding:.35rem .9rem;border-radius:1.1rem;border:4px solid var(--pet);background:var(--paper);font-weight:900;font-size:clamp(1.1rem,.9vw + .8rem,1.7rem);color:var(--pet-d);box-shadow:0 4px 0 rgba(31,79,88,.28);position:relative;text-align:center}
+.port::after{content:"";position:absolute;top:50%;width:1.1rem;height:1.1rem;margin-top:-.55rem;border-radius:50%;background:var(--must);border:3px solid var(--pet-d)}
+.pw{display:flex;align-items:center;gap:.4rem}.pw .port{flex:1;min-width:0}
+.port.left::after{right:-.7rem}.port.right::after{left:-.7rem}
+.port:hover{background:var(--must-l)}
+.port.sel{border-color:var(--must-d);background:var(--must-l);box-shadow:0 0 0 5px rgba(238,193,74,.65)}
+.port.linked{background:var(--c,var(--sage-l));border-color:var(--ok);cursor:default}
+.port.linked::after{background:var(--ok)}
+.port.nope{border-color:var(--terr);background:var(--terr-l)}
+.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}
+.lines path{fill:none;stroke-width:6;stroke-linecap:round;stroke-dasharray:var(--len);stroke-dashoffset:0;animation:draw .5s ease-out}
+@keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+.bigfix{font-weight:900;font-size:clamp(1.2rem,1.2vw + .9rem,2rem);color:var(--sage-d)}
+/* Ende */
+.endp{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.4rem,1.8dvh,1rem);text-align:center;padding:1rem 1rem calc(1rem + var(--badge));background:radial-gradient(120% 90% at 50% 0%,#fffaf0 0%,#e6efdf 70%);color:var(--ink);overflow:auto}
+.endp h2{margin:0;font-size:clamp(1.8rem,3vw + .9rem,3.6rem);color:var(--pet-d);line-height:1.05}
+.endp p{margin:0;font-size:clamp(1.05rem,1vw + .8rem,1.7rem);color:var(--ink2);font-weight:700}
+.endp .kids{display:flex;gap:1rem;align-items:flex-end;justify-content:center}
+.endp .kids svg{width:clamp(3rem,13dvh,6.4rem);height:auto}
+.endp .fl{width:clamp(4.5rem,18dvh,9rem)}
+.endp .btns{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem}
+.endp .tubes{height:auto;flex:none;margin:.2rem 0}.endp .tubes .tube{width:1.8rem;height:3.6rem}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .stn:hover svg.art,.stn:focus-visible svg.art{transform:none}
+}
+@media (max-height:820px){:root{--badge:calc(66px + env(safe-area-inset-bottom,0px))}}
+@media (max-height:700px){
+  .top{padding:.4rem .9rem .1rem}.tagline{display:none}
+  .g-head{padding:.25rem .6rem}.g-foot{padding:.3rem .6rem calc(.35rem + var(--badge))}
+  #fb{min-height:2.6rem;font-size:.98rem}.hintbtn{min-height:44px}
+  .tubes{height:2.7rem}.tubes .tube{height:2.6rem}
+  .wordbox{min-height:3rem;padding:.1rem .8rem}.opt,.card,.sbtn{min-height:3rem}
+}
+@media (max-height:520px){.g-title{display:none}.logo{font-size:1.4rem}}
+@media (max-width:520px){
+  .g-title{display:none}
+  .g-head{gap:.4rem;padding:.3rem .4rem}.g-head .ibtn{width:2.75rem;height:2.75rem}
+  .tubes .tube{width:1.25rem}.tubes{margin:0;gap:.2rem}
+  .g-foot{flex-wrap:wrap;gap:.4rem;padding:.35rem .5rem calc(.4rem + var(--badge))}
+  #fb{flex:1 1 100%;order:1;min-height:2.6rem}
+  .hintbtn{order:2}.act{order:3;margin-left:auto}
+  .hintbtn span{display:none}.hintbtn{width:3rem;padding:.3rem}
+  .conn{gap:1.5rem}.port{padding:.25rem .45rem;border-width:3px;font-size:1.05rem;min-height:2.8rem}.pw{gap:.2rem}
+  .sentence{gap:.1rem .2rem}
+  .stratrow{gap:.4rem}.sbtn{flex:1 1 calc(50% - .4rem);min-width:0;padding:.2rem .45rem .2rem .3rem;font-size:.95rem;gap:.35rem}.sbtn small{display:none}.sbtn .si{width:1.9rem;height:1.9rem}
+}
+</style>
+</head>
+<body>
+<section id="start" class="scr" aria-labelledby="logo">
+  <header class="top">
+    <div class="titles"><h1 class="logo" id="logo">Rechtschreib-<span>Labor</span></h1><p class="tagline">Wörter untersuchen &amp; Rechtschreibstrategien anwenden</p></div>
+    <div class="tools"><button class="ibtn" id="btn-help" type="button" aria-label="Hilfe" title="Hilfe">?</button><button class="ibtn" id="btn-sound" type="button"></button></div>
+  </header>
+  <main class="map" id="map" aria-label="Labor mit sieben Stationen"></main>
+  <div class="st-foot">Förderfreude Games · Tippe auf eine Station</div>
+</section>
+
+<section id="game" class="scr" hidden aria-label="Spiel">
+  <header class="g-head">
+    <button class="ibtn" id="btn-back" type="button" aria-label="Zurück zur Auswahl" title="Zurück zur Auswahl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L8 12 L15 19" fill="none" stroke="currentColor" stroke-width="3.200" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="g-title"><b id="g-name"></b><span id="g-lvl"></span></div>
+    <div class="tubes" id="tubes" role="img" aria-label="Forschungsfortschritt"></div>
+    <div class="tools"><button class="ibtn" id="btn-help2" type="button" aria-label="Hilfe" title="Hilfe">?</button><button class="ibtn" id="btn-sound2" type="button"></button></div>
+  </header>
+  <div class="stage" id="stage"></div>
+  <footer class="g-foot">
+    <button class="hintbtn" id="btn-hint" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 a6.500 6.500 0 0 0 -3.800 11.800 c.8.700 1.300 1.500 1.300 2.700 h5 c0-1.200.5-2 1.300-2.700 A6.500 6.500 0 0 0 12 3Z M9.600 20 h4.800 M10.400 22 h3.200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Tipp</span></button>
+    <div id="fb" role="status" aria-live="polite"></div>
+    <div class="act"><button class="btn" id="btn-next" type="button" hidden>Weiter</button></div>
+  </footer>
+  <div id="overlay"></div>
+</section>
+
+<dialog id="dlg-level" aria-labelledby="dl-title"><div class="panel"><h2 id="dl-title"></h2><p id="dl-desc"></p>
+  <div class="lv-row" id="dl-levels"></div>
+  <div class="dlg-act"><button class="btn sec" id="dl-cancel" type="button">Abbrechen</button></div></div></dialog>
+<dialog id="dlg-help" aria-labelledby="dh-title"><div class="panel"><h2 id="dh-title">So funktioniert’s</h2>
+  <ul class="help-list" id="dh-list"></ul>
+  <p>Es gibt keine Zeit, keine Punkte und kein Verlieren. Wenn etwas nicht stimmt, versuchst du es einfach noch einmal. Mit dem Knopf „Tipp“ bekommst du einen Hinweis.</p>
+  <div class="voice" id="dh-voice"><b>Kein Ton?</b> Tippe auf das Lautsprecher-Zeichen. Prüfe die Lautstärke und den Stumm-Schalter. Manche Geräte haben keine deutsche Stimme. Alles steht auch auf dem Bildschirm.
+    <div style="margin-top:.4rem"><button class="btn sec" id="btn-test" type="button">Ton testen</button></div><div id="voice-info" style="margin-top:.35rem"></div></div>
+  <div class="dlg-act"><button class="btn" id="dh-close" type="button">Los geht’s</button></div></div></dialog>
+<div class="sr" id="live" aria-live="polite"></div>
+<script>
+/* ===== Rechtschreib-Labor: explizit kuratierte Daten =====
+   Alle Verlängerungen, Verwandte, Silbengliederungen, Wortbausteine und Fehlersätze sind von Hand festgelegt.
+   Es wird nichts aus der Schreibweise eines Wortes automatisch hergeleitet. Stufen: e = leicht, m = mittel, h = schwer. */
+const LV={e:0,m:1,h:2};
+const rows=t=>t.trim().split('\n').filter(l=>l.trim()&&!l.trim().startsWith('#')).map(l=>l.split('|').map(s=>s.trim()));
+const nz=s=>s==='-'?'':s;
+
+/* --- 1 Verlängerung: Wort|Verlängerung|Zielbuchstabe|Gegenbuchstabe|falsche Formen|Stufe|Satz|Hinweis --- */
+const VERL=rows(`
+Hund|Hunde|d|t|Hunte,Hunder|e|Der Hund bellt laut.|
+Kind|Kinder|d|t|Kinte,Kinden|e|Das Kind spielt im Garten.|
+Bild|Bilder|d|t|Bilte,Bildel|e|Das Bild hängt an der Wand.|
+Wald|Wälder|d|t|Wälte,Wälden|e|Im Wald wachsen viele Bäume.|Umlaut in der Verlängerung, Zielstelle bleibt der Auslaut.
+Hand|Hände|d|t|Hänte,Händer|e|Ich winke mit der Hand.|Umlaut in der Verlängerung.
+Rad|Räder|d|t|Rätter,Rädel|e|Das Rad hat zwei Reifen.|Umlaut in der Verlängerung.
+Kleid|Kleider|d|t|Kleiter,Kleidel|e|Das Kleid ist neu.|
+Pferd|Pferde|d|t|Pferte,Pferdel|e|Das Pferd läuft schnell.|
+Freund|Freunde|d|t|Freunte,Freundel|e|Mein Freund wohnt nebenan.|
+Lied|Lieder|d|t|Lieter,Liedel|e|Das Lied ist schön.|
+Bad|Bäder|d|t|Bäter,Bädel|m|Das Bad ist sauber.|Umlaut in der Verlängerung.
+Land|Länder|d|t|Länter,Ländel|m|Das Land ist groß.|Umlaut in der Verlängerung.
+Mund|Münder|d|t|Münter,Mündem|m|Der Mund ist offen.|Umlaut in der Verlängerung.
+Wand|Wände|d|t|Wänte,Wänder|m|An der Wand hängt ein Bild.|Umlaut in der Verlängerung.
+Feld|Felder|d|t|Felter,Feldel|m|Auf dem Feld wächst Korn.|
+Hemd|Hemden|d|t|Hemten,Hemder|m|Das Hemd ist weiß.|
+Mond|Monde|d|t|Monte,Mondel|m|Der Mond scheint hell.|
+Rind|Rinder|d|t|Rinter,Rindel|m|Das Rind steht auf der Weide.|
+rund|runde|d|t|runte,rundel|m|Der Ball ist rund.|Adjektiv, Verlängerung durch Beugung.
+wild|wilde|d|t|wilte,wildel|m|Der Löwe ist wild.|Adjektiv.
+blond|blonde|d|t|blonte,blondel|h|Ihre Haare sind blond.|Adjektiv.
+Brot|Brote|t|d|Brode,Brotel|e|Das Brot schmeckt gut.|
+Boot|Boote|t|d|Boode,Bootel|e|Das Boot schwimmt auf dem See.|
+bunt|bunte|t|d|bunde,buntel|e|Der Schmetterling ist bunt.|Adjektiv.
+alt|alte|t|d|alde,altel|e|Der Baum ist alt.|Adjektiv.
+kalt|kalte|t|d|kalde,kaltel|e|Das Wasser ist kalt.|Adjektiv.
+gut|gute|t|d|gude,gutel|e|Das Essen ist gut.|Adjektiv.
+rot|rote|t|d|rode,rotel|e|Der Apfel ist rot.|Adjektiv.
+Zelt|Zelte|t|d|Zelde,Zeltel|m|Das Zelt steht auf der Wiese.|
+Salat|Salate|t|d|Salade,Salatel|m|Der Salat ist frisch.|
+Heft|Hefte|t|d|Hefde,Heftel|m|Das Heft liegt auf dem Tisch.|
+laut|laute|t|d|laude,lautel|m|Die Musik ist laut.|Adjektiv.
+Tag|Tage|g|k|Takke,Tagel|e|Heute ist ein schöner Tag.|
+Weg|Wege|g|k|Weke,Wegel|e|Der Weg führt zum Wald.|
+Berg|Berge|g|k|Berke,Bergel|e|Auf dem Berg liegt Schnee.|
+Zug|Züge|g|k|Züke,Zugen|e|Der Zug fährt schnell.|Umlaut in der Verlängerung.
+Krug|Krüge|g|k|Krüke,Krugen|m|Der Krug steht auf dem Tisch.|Umlaut in der Verlängerung.
+Flug|Flüge|g|k|Flüke,Flugen|m|Der Flug dauert lange.|Umlaut in der Verlängerung.
+Zweig|Zweige|g|k|Zweike,Zweigel|m|Der Vogel sitzt auf einem Zweig.|
+Teig|Teige|g|k|Teike,Teigel|m|Der Teig ist weich.|
+Burg|Burgen|g|k|Burken,Burgel|m|Die Burg ist sehr alt.|Verlängerung mit -en.
+klug|kluge|g|k|kluke,klugel|m|Der Fuchs ist klug.|Adjektiv.
+Zwerg|Zwerge|g|k|Zwerke,Zwergel|h|Der Zwerg trägt eine rote Mütze.|
+Schrank|Schränke|k|g|Schränge,Schrankel|m|Der Schrank ist voll.|Umlaut in der Verlängerung.
+Geschenk|Geschenke|k|g|Geschenge,Geschenkel|m|Das Geschenk ist für dich.|
+Getränk|Getränke|k|g|Getränge,Getränkel|h|Das Getränk ist kalt.|
+Gelenk|Gelenke|k|g|Gelenge,Gelenkel|h|Das Gelenk tut weh.|
+Korb|Körbe|b|p|Körpe,Korbel|e|Der Korb ist voll.|Umlaut in der Verlängerung.
+gelb|gelbe|b|p|gelpe,gelbel|e|Die Sonne ist gelb.|Adjektiv.
+lieb|liebe|b|p|liepe,liebel|e|Das Kind ist lieb.|Adjektiv.
+Dieb|Diebe|b|p|Diepe,Diebel|m|Der Dieb läuft weg.|
+Kalb|Kälber|b|p|Kälper,Kalbel|m|Das Kalb trinkt Milch.|Umlaut in der Verlängerung.
+halb|halbe|b|p|halpe,halbel|m|Die Flasche ist halb leer.|Adjektiv.
+Stab|Stäbe|b|p|Stäpe,Stabel|h|Der Stab ist lang.|Umlaut in der Verlängerung.
+Sieb|Siebe|b|p|Siepe,Siebem|h|Das Sieb hängt am Haken.|
+grob|grobe|b|p|grope,grobel|h|Der Sand ist grob.|Adjektiv.
+`).map(r=>({w:r[0],form:r[1],ltr:r[2],alt:r[3],bad:r[4].split(','),lv:LV[r[5]],satz:r[6],note:r[7]||''}));
+
+/* --- 2 Ableiten (ä/äu): Zielwort|Anfang|richtig|falsch|Rest|Verwandtes Wort|Ablenker|Stufe|Satz --- */
+const ABL=rows(`
+Häuser|H|äu|eu|ser|Haus|Heu,Hose|e|Die Häuser sind bunt.
+Bäume|B|äu|eu|me|Baum|Bein,Biene|e|Im Park stehen alte Bäume.
+Mäuse|M|äu|eu|se|Maus|Mut,Messer|e|Die Mäuse laufen durch das Gras.
+Äpfel|-|Ä|E|pfel|Apfel|Auto,Affe|e|Ich esse zwei Äpfel.
+Bälle|B|ä|e|lle|Ball|Bein,Bild|e|Die Bälle rollen über den Hof.
+Hände|H|ä|e|nde|Hand|Hund,Hemd|e|Meine Hände sind kalt.
+Gänse|G|ä|e|nse|Gans|Gabel,Gast|e|Die Gänse schwimmen im Teich.
+Zäune|Z|äu|eu|ne|Zaun|Zeit,Zimmer|e|Die Zäune sind hoch.
+Gläser|Gl|ä|e|ser|Glas|Glück,Gleis|e|Die Gläser stehen auf dem Tisch.
+Nägel|N|ä|e|gel|Nagel|Name,Nase|e|Die Nägel sind spitz.
+Räder|R|ä|e|der|Rad|Rock,Rose|e|Das Auto hat vier Räder.
+Väter|V|ä|e|ter|Vater|Vogel,Vase|e|Die Väter kochen heute.
+Länder|L|ä|e|nder|Land|Lampe,Lied|e|Es gibt viele Länder auf der Welt.
+Wälder|W|ä|e|lder|Wald|Wasser,Wind|e|Die Wälder sind grün.
+Hälse|H|ä|e|lse|Hals|Hase,Hose|e|Giraffen haben lange Hälse.
+Städte|St|ä|e|dte|Stadt|Stein,Stuhl|m|Die Städte sind groß.
+Blätter|Bl|ä|e|tter|Blatt|Blume,Blitz|m|Die Blätter fallen im Herbst.
+Ärzte|-|Ä|E|rzte|Arzt|Auto,Affe|m|Die Ärzte helfen den Kranken.
+Mäntel|M|ä|e|ntel|Mantel|Mund,Messer|m|Die Mäntel hängen an der Garderobe.
+Pläne|Pl|ä|e|ne|Plan|Platz,Pilz|m|Wir machen Pläne für den Sommer.
+Nächte|N|ä|e|chte|Nacht|Nadel,Nest|m|Die Nächte sind kurz im Sommer.
+wärmer|w|ä|e|rmer|warm|wild,weich|m|Im Sommer ist es wärmer als im Winter.
+älter|-|ä|e|lter|alt|eng,ein|m|Mein Opa ist älter als ich.
+länger|l|ä|e|nger|lang|laut,leer|m|Der Weg wird länger.
+stärker|st|ä|e|rker|stark|still,steil|m|Der Löwe ist stärker als der Fuchs.
+Ärmel|-|Ä|E|rmel|Arm|Auge,Ast|m|Der Ärmel ist zu lang.
+träumen|tr|äu|eu|men|Traum|Tram,Trommel|m|Ich möchte schön träumen.
+zählen|z|ä|e|hlen|Zahl|Zahn,Zoo|m|Ich kann bis zehn zählen.
+Räuber|R|äu|eu|ber|rauben|Rabe,Rasen|m|Der Räuber versteckt sich im Wald.
+Käufer|K|äu|eu|fer|kaufen|Kaffee,Kiefer|m|Die Käufer bezahlen an der Kasse.
+Läufer|L|äu|eu|fer|laufen|Löffel,Laden|m|Der Läufer rennt ins Ziel.
+Schäfer|Sch|ä|e|fer|Schaf|Schal,Schiff|h|Der Schäfer hütet die Schafe.
+Bäuerin|B|äu|eu|erin|Bauer|Bein,Biene|h|Die Bäuerin füttert die Hühner.
+Männer|M|ä|e|nner|Mann|Mond,Mund|h|Die Männer tragen Mützen.
+Kräuter|Kr|äu|eu|ter|Kraut|Kreis,Krone|h|Die Kräuter wachsen im Beet.
+Sträucher|Str|äu|eu|cher|Strauch|Strand,Straße|h|Im Garten stehen Sträucher.
+Fäuste|F|äu|eu|ste|Faust|Fenster,Fuchs|h|Er ballt die Fäuste.
+Hähne|H|ä|e|hne|Hahn|Haus,Hose|h|Die Hähne krähen früh.
+ängstlich|-|ä|e|ngstlich|Angst|Anker,Ampel|h|Das Kind ist ängstlich.
+`).map(r=>({w:r[0],pre:nz(r[1]),ok:r[2],bad:r[3],suf:r[4],help:r[5],dist:r[6].split(','),lv:LV[r[7]],satz:r[8],wrong:nz(r[1])+r[3]+r[4]}));
+
+/* --- 3 Silben: Wort|Silben|Art (dk Doppelkonsonant, os offene Silbe)|falsche Schreibung|Stufe|Satz --- */
+const SILB=rows(`
+Sonne|Son,ne|dk|Sone|e|Die Sonne scheint hell.
+Mutter|Mut,ter|dk|Muter|e|Meine Mutter kocht heute.
+Butter|But,ter|dk|Buter|e|Ich esse Brot mit Butter.
+kommen|kom,men|dk|komen|e|Wir kommen gleich.
+rennen|ren,nen|dk|renen|e|Die Kinder rennen über den Hof.
+Wasser|Was,ser|dk|Waser|e|Das Wasser ist kalt.
+Tasse|Tas,se|dk|Tase|e|Die Tasse steht auf dem Tisch.
+Puppe|Pup,pe|dk|Pupe|e|Die Puppe liegt im Bett.
+Brille|Bril,le|dk|Brile|e|Opa hat eine Brille.
+Wolle|Wol,le|dk|Wole|e|Der Pullover ist aus Wolle.
+Suppe|Sup,pe|dk|Supe|e|Die Suppe ist heiß.
+Affe|Af,fe|dk|Afe|e|Der Affe klettert auf den Baum.
+Hammer|Ham,mer|dk|Hamer|e|Der Hammer liegt in der Kiste.
+Teller|Tel,ler|dk|Teler|e|Der Teller ist leer.
+Sommer|Som,mer|dk|Somer|e|Im Sommer ist es warm.
+Himmel|Him,mel|dk|Himel|e|Der Himmel ist blau.
+Bitte|Bit,te|dk|Bite|m|Ich habe eine Bitte.
+Kette|Ket,te|dk|Kete|m|Sie trägt eine Kette.
+Treppe|Trep,pe|dk|Trepe|m|Die Treppe ist steil.
+Pfanne|Pfan,ne|dk|Pfane|m|Die Pfanne ist heiß.
+Mappe|Map,pe|dk|Mape|m|Die Mappe liegt im Ranzen.
+Keller|Kel,ler|dk|Keler|m|Im Keller ist es kühl.
+Löffel|Löf,fel|dk|Löfel|m|Der Löffel liegt neben dem Teller.
+Koffer|Kof,fer|dk|Kofer|m|Der Koffer ist schwer.
+Bagger|Bag,ger|dk|Bager|m|Der Bagger gräbt ein Loch.
+Zettel|Zet,tel|dk|Zetel|m|Auf dem Zettel steht ein Wort.
+Zimmer|Zim,mer|dk|Zimer|m|Mein Zimmer ist klein.
+Falle|Fal,le|dk|Fale|m|Die Maus sitzt in der Falle.
+Halle|Hal,le|dk|Hale|m|In der Halle ist es laut.
+Schnuller|Schnul,ler|dk|Schnuler|m|Das Baby hat einen Schnuller.
+Tanne|Tan,ne|dk|Tane|m|Die Tanne ist grün.
+Bälle|Bäl,le|dk|Bäle|m|Die Bälle liegen im Korb.
+Qualle|Qual,le|dk|Quale|h|Die Qualle schwimmt im Meer.
+Schüssel|Schüs,sel|dk|Schüsel|h|Die Schüssel steht auf dem Tisch.
+Schlitten|Schlit,ten|dk|Schliten|h|Wir fahren mit dem Schlitten.
+Kartoffel|Kar,tof,fel|dk|Kartofel|h|Die Kartoffel ist rund.
+Gewitter|Ge,wit,ter|dk|Gewiter|h|Das Gewitter ist laut.
+Hummel|Hum,mel|dk|Humel|h|Die Hummel summt.
+Hase|Ha,se|os|-|e|Der Hase hoppelt über die Wiese.
+Nase|Na,se|os|-|e|Die Nase ist rot.
+Rose|Ro,se|os|-|e|Die Rose duftet.
+Hose|Ho,se|os|-|e|Die Hose ist blau.
+Wiese|Wie,se|os|-|e|Auf der Wiese blühen Blumen.
+Ofen|O,fen|os|-|m|Der Ofen ist warm.
+Igel|I,gel|os|-|m|Der Igel schläft im Laub.
+Tafel|Ta,fel|os|-|m|Die Tafel ist grün.
+Besen|Be,sen|os|-|m|Der Besen steht in der Ecke.
+Blume|Blu,me|os|-|e|Die Blume ist gelb.
+Nudel|Nu,del|os|-|m|Die Nudel ist lang.
+Gabel|Ga,bel|os|-|m|Die Gabel liegt links.
+Wagen|Wa,gen|os|-|m|Der Wagen rollt den Berg hinunter.
+Rabe|Ra,be|os|-|m|Der Rabe sitzt auf dem Dach.
+Biene|Bie,ne|os|-|e|Die Biene summt.
+Boden|Bo,den|os|-|m|Der Boden ist sauber.
+Kuchen|Ku,chen|os|-|e|Der Kuchen schmeckt süß.
+Fahne|Fah,ne|os|-|m|Die Fahne weht im Wind.
+`).map(r=>({w:r[0],syl:r[1].split(','),art:r[2],wrong:nz(r[3]),lv:LV[r[4]],satz:r[5]}));
+
+/* --- 4 Wortbausteine: Wort|Bausteine|Rollen (v Vorsilbe, s Stamm, e Endung, g Wortteil)|Ablenker|Stufe --- */
+const BAU=rows(`
+spielen|spiel,en|s,e|ig,lich|e
+fahren|fahr,en|s,e|ung,heit|e
+lesen|les,en|s,e|ig,heit|e
+malen|mal,en|s,e|lich,ung|e
+lachen|lach,en|s,e|heit,ig|e
+rufen|ruf,en|s,e|ig,heit|e
+suchen|such,en|s,e|lich,ig|e
+kaufen|kauf,en|s,e|er,heit|e
+fragen|frag,en|s,e|ig,keit|e
+holen|hol,en|s,e|lich,ig|e
+lernen|lern,en|s,e|ung,ig|e
+helfen|helf,en|s,e|ig,keit|m
+Spieler|Spiel,er|s,e|ig,heit|e
+Lehrer|Lehr,er|s,e|ig,heit|e
+Fahrer|Fahr,er|s,e|heit,lich|e
+Leser|Les,er|s,e|ig,heit|m
+Maler|Mal,er|s,e|ig,heit|m
+Finder|Find,er|s,e|lich,heit|m
+Reiter|Reit,er|s,e|heit,lich|m
+Wohnung|Wohn,ung|s,e|heit,ig|m
+Meinung|Mein,ung|s,e|heit,ig|m
+Übung|Üb,ung|s,e|heit,ig|m
+freundlich|freund,lich|s,e|ig,heit|m
+glücklich|glück,lich|s,e|ig,heit|m
+ruhig|ruh,ig|s,e|lich,heit|m
+lustig|lust,ig|s,e|lich,heit|m
+sonnig|sonn,ig|s,e|lich,heit|m
+windig|wind,ig|s,e|lich,heit|m
+mutig|mut,ig|s,e|lich,heit|m
+Gesundheit|Gesund,heit|s,e|ig,lich|m
+Krankheit|Krank,heit|s,e|ig,lich|e
+Freiheit|Frei,heit|s,e|keit,ig|e
+Schönheit|Schön,heit|s,e|ig,lich|h
+Sauberkeit|Sauber,keit|s,e|ig,lich|h
+unfreundlich|un,freund,lich|v,s,e|ver,ig|m
+unglücklich|un,glück,lich|v,s,e|ver,ig|m
+verlaufen|ver,lauf,en|v,s,e|un,ig|e
+verkaufen|ver,kauf,en|v,s,e|un,ig|m
+verstecken|ver,steck,en|v,s,e|un,ig|m
+vorlesen|vor,les,en|v,s,e|un,ig|e
+vorsingen|vor,sing,en|v,s,e|un,ig|h
+entdecken|ent,deck,en|v,s,e|un,ig|h
+erzählen|er,zähl,en|v,s,e|un,ig|h
+bezahlen|be,zahl,en|v,s,e|un,ig|h
+zerbrechen|zer,brech,en|v,s,e|un,ig|h
+Vorsicht|Vor,sicht|v,s|ver,heit|m
+Unglück|Un,glück|v,s|ig,heit|m
+Unfall|Un,fall|v,s|ig,heit|m
+Mitspieler|Mit,spiel,er|v,s,e|ig,heit|h
+Haustür|Haus,Tür|g,g|Tor,Hof|e
+Fußball|Fuß,Ball|g,g|Hand,Tor|e
+Regenjacke|Regen,Jacke|g,g|Schnee,Hose|e
+Apfelbaum|Apfel,Baum|g,g|Birne,Strauch|e
+Handschuh|Hand,Schuh|g,g|Fuß,Hut|e
+Tischbein|Tisch,Bein|g,g|Stuhl,Arm|m
+Kinderwagen|Kinder,Wagen|g,g|Hunde,Auto|m
+Wasserhahn|Wasser,Hahn|g,g|Eimer,Rohr|m
+Zahnbürste|Zahn,Bürste|g,g|Haar,Seife|m
+Fahrrad|Fahr,Rad|g,g|Auto,Reifen|m
+Schneemann|Schnee,Mann|g,g|Eis,Frau|m
+Sandkasten|Sand,Kasten|g,g|Wasser,Eimer|m
+Brotkorb|Brot,Korb|g,g|Käse,Tisch|m
+Handtuch|Hand,Tuch|g,g|Fuß,Bad|m
+Hundehütte|Hunde,Hütte|g,g|Katzen,Haus|h
+Gartentor|Garten,Tor|g,g|Haus,Zaun|h
+Seifenblase|Seifen,Blase|g,g|Wasser,Luft|h
+`).map(r=>({w:r[0],parts:r[1].split(','),roles:r[2].split(','),dist:r[3].split(','),lv:LV[r[4]]}));
+
+/* --- 4b Problemstellen bei Wortbausteinen (Strategiezentrale/Fehlerdetektor): Wort|Baustein|falscher Baustein|Art (v Vorsilbe, n Nachsilbe)|Stufe --- */
+const BAUP=rows(`
+verlaufen|ver|fer|v|e
+vorlesen|vor|for|v|e
+Krankheit|heit|hait|n|e
+Freiheit|heit|hait|n|e
+verkaufen|ver|fer|v|m
+Vorsicht|Vor|For|v|m
+Gesundheit|heit|hait|n|m
+vorsingen|vor|for|v|h
+Schönheit|heit|hait|n|h
+Sauberkeit|keit|kait|n|h
+`).map(r=>({w:r[0],part:r[1],wrongPart:r[2],art:r[3],lv:LV[r[4]]}));
+
+/* --- 5 Fehlerdetektor: Satz mit Fehler|falsches Wort|richtiges Wort|Strategie|Datensatz|Stufe --- */
+const FEHL=rows(`
+Der Hund rennt durch den Walt.|Walt|Wald|verl|Wald|e
+Das Kind malt ein Bilt.|Bilt|Bild|verl|Bild|e
+Im Garten steht ein Korp.|Korp|Korb|verl|Korb|e
+Wir gehen auf einen hohen Berk.|Berk|Berg|verl|Berg|e
+Heute ist ein schöner Tak.|Tak|Tag|verl|Tag|e
+Der Diep läuft über die Wiese.|Diep|Dieb|verl|Dieb|m
+Mein Freunt kommt zu Besuch.|Freunt|Freund|verl|Freund|e
+Das Brod schmeckt gut.|Brod|Brot|verl|Brot|e
+Das Zeld steht auf der Wiese.|Zeld|Zelt|verl|Zelt|m
+Meine Hant ist kalt.|Hant|Hand|verl|Hand|e
+Das Kleit ist neu.|Kleit|Kleid|verl|Kleid|e
+Der Zuk ist sehr lang.|Zuk|Zug|verl|Zug|e
+Die Sonne ist gelp.|gelp|gelb|verl|gelb|e
+Auf dem Felt wachsen Blumen.|Felt|Feld|verl|Feld|m
+Im Schrang liegen viele Sachen.|Schrang|Schrank|verl|Schrank|m
+Das Liet ist schön.|Liet|Lied|verl|Lied|e
+Der Stap ist lang.|Stap|Stab|verl|Stab|h
+Die Burk ist sehr alt.|Burk|Burg|verl|Burg|m
+Der Fuchs ist kluk.|kluk|klug|verl|klug|m
+Das Wasser ist kald.|kald|kalt|verl|kalt|e
+Das Hemt ist weiß.|Hemt|Hemd|verl|Hemd|m
+Der Mont scheint hell.|Mont|Mond|verl|Mond|m
+Das Lant ist groß.|Lant|Land|verl|Land|m
+Der Kruk steht auf dem Tisch.|Kruk|Krug|verl|Krug|m
+Der Fluk dauert lange.|Fluk|Flug|verl|Flug|m
+Der Teik ist weich.|Teik|Teig|verl|Teig|m
+Der Vogel sitzt auf einem Zweik.|Zweik|Zweig|verl|Zweig|m
+Der Salad ist frisch.|Salad|Salat|verl|Salat|m
+Das Hefd liegt auf dem Tisch.|Hefd|Heft|verl|Heft|m
+Das Gescheng ist für dich.|Gescheng|Geschenk|verl|Geschenk|m
+Das Kalp trinkt Milch.|Kalp|Kalb|verl|Kalb|m
+Das Siep hängt am Haken.|Siep|Sieb|verl|Sieb|h
+Das Geträng ist kalt.|Geträng|Getränk|verl|Getränk|h
+Der Zwerk hat eine rote Mütze.|Zwerk|Zwerg|verl|Zwerg|h
+Der Löwe ist wilt.|wilt|wild|verl|wild|m
+Die Nechte sind kurz im Sommer.|Nechte|Nächte|abl|Nächte|m
+Die Mentel hängen an der Garderobe.|Mentel|Mäntel|abl|Mäntel|m
+Die Stedte sind groß.|Stedte|Städte|abl|Städte|m
+Der Ermel ist zu lang.|Ermel|Ärmel|abl|Ärmel|m
+Der Leufer rennt ins Ziel.|Leufer|Läufer|abl|Läufer|m
+Die Menner tragen Mützen.|Menner|Männer|abl|Männer|h
+Im Garten stehen Streucher.|Streucher|Sträucher|abl|Sträucher|h
+Das Kind ist engstlich.|engstlich|ängstlich|abl|ängstlich|h
+Der Schefer hütet die Schafe.|Schefer|Schäfer|abl|Schäfer|h
+Die Quale schwimmt im Meer.|Quale|Qualle|silb|Qualle|h
+Wir fahren mit dem Schliten.|Schliten|Schlitten|silb|Schlitten|h
+Die Humel summt.|Humel|Hummel|silb|Hummel|h
+Auf dem Zetel steht ein Wort.|Zetel|Zettel|silb|Zettel|m
+Im Keler ist es kühl.|Keler|Keller|silb|Keller|m
+Mein Zimer ist klein.|Zimer|Zimmer|silb|Zimmer|m
+Die Pfane ist heiß.|Pfane|Pfanne|silb|Pfanne|m
+Die Trepe ist steil.|Trepe|Treppe|silb|Treppe|m
+Im Wald wachsen hohe Beume.|Beume|Bäume|abl|Bäume|e
+Die Heuser sind sehr groß.|Heuser|Häuser|abl|Häuser|e
+Die Meuse laufen durch das Gras.|Meuse|Mäuse|abl|Mäuse|e
+Ich esse zwei Epfel.|Epfel|Äpfel|abl|Äpfel|e
+Die Belle rollen über den Hof.|Belle|Bälle|abl|Bälle|e
+Meine Hende sind kalt.|Hende|Hände|abl|Hände|e
+Die Gense schwimmen im Teich.|Gense|Gänse|abl|Gänse|e
+Um den Garten stehen hohe Zeune.|Zeune|Zäune|abl|Zäune|e
+Die Gleser stehen auf dem Tisch.|Gleser|Gläser|abl|Gläser|e
+Die Negel sind spitz.|Negel|Nägel|abl|Nägel|e
+Die Welder sind grün.|Welder|Wälder|abl|Wälder|e
+Der Reuber versteckt sich im Wald.|Reuber|Räuber|abl|Räuber|m
+Im Sommer ist es wermer als im Winter.|wermer|wärmer|abl|wärmer|m
+Mein Opa ist elter als ich.|elter|älter|abl|älter|m
+Die Keufer bezahlen an der Kasse.|Keufer|Käufer|abl|Käufer|m
+Die Bletter fallen im Herbst.|Bletter|Blätter|abl|Blätter|m
+Der Weg wird lenger.|lenger|länger|abl|länger|m
+Der Löwe ist sterker als der Fuchs.|sterker|stärker|abl|stärker|m
+Die Kreuter wachsen im Beet.|Kreuter|Kräuter|abl|Kräuter|h
+Die Beuerin füttert die Hühner.|Beuerin|Bäuerin|abl|Bäuerin|h
+Die Sone scheint hell.|Sone|Sonne|silb|Sonne|e
+Meine Muter kocht heute.|Muter|Mutter|silb|Mutter|e
+Das Waser ist kalt.|Waser|Wasser|silb|Wasser|e
+Die Pupe liegt im Bett.|Pupe|Puppe|silb|Puppe|e
+Opa hat eine Brile.|Brile|Brille|silb|Brille|e
+Ich esse Brot mit Buter.|Buter|Butter|silb|Butter|e
+Der Hamer liegt in der Kiste.|Hamer|Hammer|silb|Hammer|e
+Im Somer ist es warm.|Somer|Sommer|silb|Sommer|e
+Der Himel ist blau.|Himel|Himmel|silb|Himmel|e
+Die Supe ist heiß.|Supe|Suppe|silb|Suppe|e
+Die Kinder renen über den Hof.|renen|rennen|silb|rennen|m
+Die Tase steht auf dem Tisch.|Tase|Tasse|silb|Tasse|m
+Der Kofer ist schwer.|Kofer|Koffer|silb|Koffer|m
+Der Teler ist leer.|Teler|Teller|silb|Teller|m
+Der Löfel liegt neben dem Teller.|Löfel|Löffel|silb|Löffel|m
+Die Schüsel steht auf dem Tisch.|Schüsel|Schüssel|silb|Schüssel|h
+Die Kartofel ist rund.|Kartofel|Kartoffel|silb|Kartoffel|h
+Das Gewiter ist laut.|Gewiter|Gewitter|silb|Gewitter|h
+Das Kind hat sich im Wald ferlaufen.|ferlaufen|verlaufen|bau|verlaufen|e
+Die Lehrerin will uns eine Geschichte forlesen.|forlesen|vorlesen|bau|vorlesen|e
+Die Krankhait dauert lange.|Krankhait|Krankheit|bau|Krankheit|e
+Die Freihait ist wichtig.|Freihait|Freiheit|bau|Freiheit|e
+Ich will mein Rad ferkaufen.|ferkaufen|verkaufen|bau|verkaufen|m
+Beim Fahren ist Forsicht wichtig.|Forsicht|Vorsicht|bau|Vorsicht|m
+Die Gesundhait ist wichtig.|Gesundhait|Gesundheit|bau|Gesundheit|m
+Sie will uns ein Lied forsingen.|forsingen|vorsingen|bau|vorsingen|h
+Im Zimmer herrscht Sauberkait.|Sauberkait|Sauberkeit|bau|Sauberkeit|h
+Die Schönhait der Blume ist groß.|Schönhait|Schönheit|bau|Schönheit|h
+`).map(r=>({sent:r[0],wrong:r[1],right:r[2],strat:r[3],ref:r[4],lv:LV[r[5]]}));
+
+/* --- Lernstrategien (genau vier) --- */
+const STRATS={
+  verl:{id:'verl',name:'Verlängern',short:'Verlängern',ex:'Hund → Hunde',help:'Mach das Wort länger. Dann kannst du manche Buchstaben besser erkennen.',ing:'Das Wort verlängern'},
+  abl:{id:'abl',name:'Ableiten',short:'Ableiten',ex:'Häuser → Haus',help:'Suche ein verwandtes Wort.',ing:'Ein verwandtes Wort suchen'},
+  silb:{id:'silb',name:'Silben untersuchen',short:'Silben',ex:'Son-ne',help:'Sprich das Wort langsam in Silben und schau dir seinen Aufbau genau an.',ing:'Die Silben untersuchen'},
+  bau:{id:'bau',name:'Wortbausteine',short:'Wortbausteine',ex:'spiel + er → Spieler',help:'Viele Wörter bestehen aus Teilen, die du auch in anderen Wörtern wiederfindest.',ing:'Die Wortbausteine erkennen'}
+};
+const STRAT_IDS=['verl','abl','silb','bau'];
+const SPOT_OF={verl:'Auslaut',abl:'ä/äu',silb:'Wortmitte',bau:'Vor-/Nachsilbe'};
+const PLAIN=s=>s.replace(/[Ää]/g,'a').replace(/[Öö]/g,'o').replace(/[Üü]/g,'u');
+/* Von wordfreq (de) ermittelte Zeichenfolgen, die als Kartenkombination ein echtes Wort ergeben könnten; nur zur Eindeutigkeitsprüfung */
+const REALX=["affen", "afro", "after", "bebel", "bei", "bela", "bella", "bene", "beta", "bete", "beten", "biegen", "bienen", "biete", "bieten", "bieter", "bitten", "bitter", "blumen", "bluse", "blute", "bluten", "bogen", "bone", "bose", "bote", "boten", "butler", "dagegen", "dai", "dale", "dame", "damen", "dana", "data", "date", "daten", "della", "denke", "eren", "fahnen", "falke", "false", "falten", "falter", "fegen", "fei", "felgen", "ferner", "gabe", "gala", "game", "gamer", "gase", "gate", "gebeten", "gegenden", "geladen", "gelbe", "gelten", "genfer", "gerda", "habe", "hafen", "hafer", "hagel", "hagen", "hager", "halbe", "hale", "halfen", "haller", "halte", "halten", "halter", "hasen", "hate", "hater", "heiter", "hoden", "hofe", "hofer", "hole", "home", "homer", "homo", "hope", "hosen", "hotel", "hummer", "ida", "igen", "iger", "imo", "kegel", "kei", "kelle", "kelten", "ketten", "kochen", "koma", "komma", "komme", "kugel", "label", "lachen", "laden", "lagen", "lager", "lake", "lama", "lana", "lane", "lara", "lasen", "laser", "late", "later", "lebe", "legen", "lerne", "lernen", "lerner", "lichen", "luden", "luke", "lumen", "luna", "lupe", "mabel", "machen", "maden", "magen", "mager", "mai", "make", "makel", "male", "maler", "manu", "mao", "mara", "maren", "mari", "mason", "mate", "mater", "melden", "memo", "menden", "mengen", "merke", "model", "moi", "mona", "mori", "mose", "mosel", "moser", "motel", "nabel", "nada", "nadel", "nagel", "name", "namen", "nasen", "nate", "nemo", "nenner", "nero", "oda", "ole", "oma", "omen", "one", "opel", "pelle", "pfannen", "rachen", "ragen", "rama", "rasen", "raser", "rate", "raten", "renne", "renner", "rente", "renten", "riga", "rio", "rise", "rita", "riten", "robe", "roden", "roger", "roi", "role", "roma", "rome", "rose", "rosen", "rosi", "rote", "roten", "roter", "schüsse", "schüssen", "segen", "selbe", "selma", "selten", "senden", "senke", "sina", "siri", "site", "sonden", "sonnen", "tagen", "take", "tale", "taler", "tanke", "tannen", "tanner", "tante", "tanten", "tape", "taschen", "tassen", "taste", "tasten", "tate", "taten", "teller", "tube", "tui", "vorigen", "wachen", "waden", "wake", "wale", "waschen", "water", "wiegen", "wiener", "wiesen", "wieser", "wolke", "wolter"];
+/* ===== Rechtschreib-Labor: Aufgabengeneratoren, Validierung, Rundenplan ===== */
+const rnd=n=>Math.floor(Math.random()*n);
+const pick=a=>a[rnd(a.length)];
+function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=rnd(i+1); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+const lc=s=>s.toLowerCase();
+const ASM=parts=>parts[0]+parts.slice(1).map(lc).join('');
+const byW=rows=>Object.fromEntries(rows.map(r=>[r.w,r]));
+const VERLW=byW(VERL), ABLW=byW(ABL), SILBW=byW(SILB), BAUW=byW(BAU), BAUPW=byW(BAUP);
+BAUP.forEach(r=>{ r.wrongWord=r.art==='v'?r.wrongPart+r.w.slice(r.part.length):r.w.slice(0,r.w.length-r.part.length)+r.wrongPart; });
+
+/* Zusätzliche gebräuchliche Wörter, nur für die Eindeutigkeits-Prüfung (zufällig zusammengesetzte Silben dürfen kein Wort ergeben) */
+const EXTRA=('Haus Maus Hose Rose Rosen Nase Hase Vase Tasse Kasse Kiste Liste Lampe Mama Papa Oma Opa Ofen Eimer Esel Eule Ente Auge Arm Bein Bett Buch Baum Ball Bild Boot Brot Bus Dach Dose Fisch Fuchs Gans Gras Hahn Hals Hand Hemd Herd Hut Jacke Kamm Kaffee Kanne Katze Kind Kopf Kuh Lamm Land Lied Mond Mund Nuss Obst Ohr Pilz Rad Reh Ring Rock Sack Salz Sand Schaf Schuh See Seil Sofa Stern Stift Stock Stuhl Tag Tier Tisch Tor Tuch Turm Uhr Vogel Wand Wind Wolf Wurm Zahn Zaun Zebra Zeit Ziege Zoo Rabe Rasen Rolle Salat Sonne Sohn Tante Onkel Wiese Mode Note Tonne Tüte Wanne Mine Miete Mette Metter Seite Sene Rente Kante Kette Ketten Mitte Kater Vater Mutter Butter Futter Eltern Termin Tinte Tonne Tomate Nomen Namen Name Lamme Wolle Rolle Nudel Kugel Mantel Mantel Käse Küche Kasten Karte Kiste Hunde Hunger Hummer Humor Sommer Summe Besen Bessen Messer Messe Masse Maske Mappe Mauer Meter Miete Pfanne Pfade Pfote Pute Rute Rübe Sale Salbe Silbe Sorte Sonne Wonne Winter Zimmer Zinne Zimt Zwerg').split(' ');
+const REALSET=new Set([...VERL.map(r=>lc(r.w)),...VERL.map(r=>lc(r.form)),...ABL.map(r=>lc(r.w)),...ABL.map(r=>lc(r.help)),...SILB.map(r=>lc(r.w)),...BAU.map(r=>lc(r.w)),...EXTRA.map(lc)]);
+REALX.forEach(w=>REALSET.add(w));
+const SYLPOOL=['la','mo','ri','tu','be','ko','fe','den','gen','ler','ten','sel','pel','ner','ma','ro','si','lu','ke','da'];
+
+const lvOk=(r,L)=>L===0?r.lv===0:L===1?r.lv<=1:r.lv>=1;
+const poolOf=(rows,L,f)=>rows.filter(r=>lvOk(r,L)&&(!f||f(r)));
+
+/* Auswahlkontext: used = Schlüssel dieser Runde, hist = Schlüssel der letzten Runden */
+function takeRow(rows,ctx,keysOf){
+  const free=rows.filter(r=>!keysOf(r).some(k=>ctx.used.has(k)));
+  if(!free.length) return null;
+  const fresh=free.filter(r=>!keysOf(r).some(k=>ctx.hist.has(k)));
+  return pick(fresh.length?fresh:free);
+}
+const kW=r=>[lc(r.w)];
+const kABL=r=>[lc(r.w),lc(r.help)];
+const kFEHL=r=>[lc(r.ref)];
+
+/* Hilfsfunktionen: Kartenauswahl und Schlüsselprüfungen */
+function ordersEqual(cards,k,target,exceptIdx){ /* Anzahl der Kartenfolgen (Länge k), die target ergeben, außer der vorgesehenen */
+  let n=0; const t=lc(target);
+  const rec=(used,acc)=>{ if(used.length===k){ if(lc(acc)===t&&used.join()!==exceptIdx.join()) n++; return; }
+    for(let i=0;i<cards.length;i++){ if(used.includes(i)) continue; const s=acc+cards[i]; if(!t.startsWith(lc(s))) continue; rec([...used,i],s); } };
+  rec([],''); return n;
+}
+function realOrders(cards,k,targetLc){ /* Kartenfolgen, die ein anderes bekanntes Wort ergeben */
+  const found=[]; const rec=(used,acc)=>{ if(used.length===k){ if(REALSET.has(lc(acc))&&lc(acc)!==targetLc) found.push(acc); return; } for(let i=0;i<cards.length;i++){ if(used.includes(i)) continue; rec([...used,i],acc+cards[i]); } };
+  rec([],''); return found;
+}
+const other3=ltr=>{ const pairs=[['d','t'],['g','k'],['b','p']].filter(p=>!p.includes(ltr)); return pick(pick(pairs)); };
+
+/* ---------------- 1 Verlängerung ---------------- */
+function verlFields(r,L){
+  const stem=r.w.slice(0,-1);
+  const letters=L===0?shuffle([r.ltr,r.alt]):shuffle([r.ltr,r.alt,other3(r.ltr)]);
+  return {ref:r.w,word:r.w,stem,form:r.form,forms:shuffle([r.form,...r.bad]),ltr:r.ltr,alt:r.alt,letters,satz:r.satz};
+}
+function genVerl(L,ctx,v){
+  v=v||'std';
+  if(v==='conn'){
+    const rows=poolOf(VERL,L), got=[]; const local={used:new Set(ctx.used),hist:ctx.hist};
+    for(let i=0;i<3;i++){ const r=takeRow(rows.filter(x=>!got.some(g=>PLAIN(g.w.slice(0,-1))===PLAIN(x.w.slice(0,-1)))),local,kW); if(!r) return null; got.push(r); local.used.add(lc(r.w)); }
+    const pairs=got.map(r=>({l:r.w.slice(0,-1)+'_',r:r.form,ref:r.w}));
+    return {k:'verl',v:'conn',strat:'verl',key:got.map(r=>lc(r.w)),refs:got.map(r=>r.w),pairs,left:shuffle(pairs.map((p,i)=>i)),right:shuffle(pairs.map((p,i)=>i)),
+      hint:'Mach jedes Wort länger. Welche verlängerte Form passt zu welchem Wortteil?',ok:got.map(r=>r.w+' → '+r.form).join(' · ')};
+  }
+  const r=takeRow(poolOf(VERL,L),ctx,kW); if(!r) return null;
+  const f=verlFields(r,L); const ex=L===0?pick(VERL.filter(x=>x.lv===0&&x.w!==r.w&&x.ltr!==r.ltr&&PLAIN(x.w[0])!==PLAIN(r.w[0]))):null;
+  return Object.assign({k:'verl',v:(v==='sent'||L===2)?'sent':'std',strat:'verl',key:[lc(r.w)],example:ex?{w:ex.w,form:ex.form}:null,
+    hint:'Mach das Wort länger. Dann kannst du den Buchstaben besser hören.',
+    ok:`${r.form}: Hier hörst du ein ${r.ltr}. Also schreibt man ${r.w}.`},f);
+}
+
+/* ---------------- 2 Ableiten ---------------- */
+function ablFields(r){
+  const letters=[r.ok,r.bad];
+  return {ref:r.w,word:r.w,pre:r.pre,suf:r.suf,okL:r.ok,badL:r.bad,helper:r.help,opts:shuffle([r.help,...r.dist]),letters:shuffle(letters),satz:r.satz,wrong:r.wrong};
+}
+function genAbl(L,ctx,v){
+  v=v||'std';
+  if(v==='conn'){
+    const rows=poolOf(ABL,L), got=[]; const local={used:new Set(ctx.used),hist:ctx.hist};
+    for(let i=0;i<3;i++){ const r=takeRow(rows,local,kABL); if(!r) return null; got.push(r); kABL(r).forEach(k=>local.used.add(k)); }
+    const pairs=got.map(r=>({l:r.pre+'_'+r.suf,r:r.help,ref:r.w}));
+    return {k:'abl',v:'conn',strat:'abl',key:got.flatMap(kABL),refs:got.map(r=>r.w),pairs,left:shuffle(pairs.map((p,i)=>i)),right:shuffle(pairs.map((p,i)=>i)),
+      hint:'Suche zu jedem Wortteil ein verwandtes Wort. Es zeigt dir den Buchstaben.',ok:got.map(r=>r.help+' → '+r.w).join(' · ')};
+  }
+  const r=takeRow(poolOf(ABL,L),ctx,kABL); if(!r) return null;
+  return Object.assign({k:'abl',v:(v==='sent'||L===2)?'sent':'std',strat:'abl',key:kABL(r),
+    hint:'Suche ein verwandtes Wort. Schau, welchen Buchstaben es hat.',
+    ok:`${r.help} → ${r.w}: Das verwandte Wort zeigt dir den Buchstaben. Also schreibt man ${r.w}.`},ablFields(r));
+}
+
+/* ---------------- 3 Silben ---------------- */
+function silbOrderCards(r,extra,L){
+  for(let tries=0;tries<80;tries++){
+    const ds=shuffle(SYLPOOL.filter(s=>!r.syl.map(lc).includes(s))).slice(0,extra);
+    const cards=[...r.syl,...ds]; const k=r.syl.length;
+    const exc=r.syl.map((s,i)=>i);
+    if(ordersEqual(cards,k,r.w,exc)===0&&realOrders(cards,k,lc(r.w)).length===0){
+      let sh=shuffle(cards); if(extra===0&&k>1&&sh.join('|')===r.syl.join('|')) sh=shuffle(cards);
+      return sh; }
+  } return null;
+}
+const SILB_BOUND=r=>{ const c=[]; let n=0; r.syl.slice(0,-1).forEach(s=>{ n+=s.length; c.push(n); }); return c; };
+function genSilb(L,ctx,v){
+  const mkBase=(r,vv)=>({k:'silb',v:vv,strat:'silb',key:[lc(r.w)],ref:r.w,word:r.w,syl:r.syl.slice()});
+  if(v==='halves'){
+    const rows=poolOf(SILB,L,r=>r.syl.length===2), got=[]; const local={used:new Set(ctx.used),hist:ctx.hist};
+    for(let tries=0;tries<30&&got.length<3;tries++){ const r=takeRow(rows,local,kW); if(!r) return null;
+      if(got.some(g=>lc(g.syl[0])===lc(r.syl[0])||lc(g.syl[1])===lc(r.syl[1]))){ local.used.add(lc(r.w)); continue; }
+      const cross=got.some(g=>REALSET.has(lc(g.syl[0]+r.syl[1]))||REALSET.has(lc(r.syl[0]+g.syl[1])));
+      if(cross){ local.used.add(lc(r.w)); continue; } got.push(r); local.used.add(lc(r.w)); }
+    if(got.length<3) return null;
+    const pairs=got.map(r=>({l:r.syl[0],r:r.syl[1],ref:r.w}));
+    return {k:'silb',v:'halves',strat:'silb',key:got.map(r=>lc(r.w)),refs:got.map(r=>r.w),pairs,left:shuffle(pairs.map((p,i)=>i)),right:shuffle(pairs.map((p,i)=>i)),
+      hint:'Lies die Hälften laut. Welche beiden Silben ergeben zusammen ein Wort?',ok:got.map(r=>r.syl.join('·')+' → '+r.w).join(' · ')};
+  }
+  if(v==='spell'){
+    const r=takeRow(poolOf(SILB,L,x=>x.art==='dk'),ctx,kW); if(!r) return null;
+    return Object.assign(mkBase(r,'spell'),{satz:r.satz,gap:r.satz.replace(r.w,'____'),opts:shuffle([r.w,r.wrong]),wrong:r.wrong,
+      hint:'Sprich das Wort langsam in Silben. Schau dir an, wie die erste Silbe endet.',ok:`${r.syl.join('-')}: Der Vokal ist kurz, dazwischen stehen zwei gleiche Konsonanten. Also schreibt man ${r.w}.`});
+  }
+  if(v==='cut'){
+    const r=takeRow(poolOf(SILB,L,x=>x.w.length<=7&&(L<2?x.syl.length===2:true)),ctx,kW); if(!r) return null;
+    return Object.assign(mkBase(r,'cut'),{cuts:SILB_BOUND(r),art:r.art,
+      hint:'Sprich das Wort langsam und klatsche bei jeder Silbe. Wo endet eine Silbe?',ok:`${r.syl.join('-')}: ${r.art==='dk'?'Zwischen den Silben stehen zwei gleiche Konsonanten.':'Hier steht nur ein Konsonant zwischen den Silben.'}`});
+  }
+  /* order */
+  const extra=L===0?0:L===1?1:2;
+  for(let tries=0;tries<20;tries++){
+    const r=takeRow(poolOf(SILB,L),ctx,kW); if(!r) return null;
+    const cards=silbOrderCards(r,extra,L); if(!cards) continue;
+    return Object.assign(mkBase(r,'order'),{cards,satz:r.satz,gap:r.satz.replace(r.w,'____'),hint:'Klatsche das Wort in Silben. Welche Silbe kommt zuerst, welche zuletzt?',ok:`${r.syl.join(' + ')} → ${r.w}`});
+  }
+  return null;
+}
+
+/* ---------------- 4 Wortbausteine ---------------- */
+const roleName=(part,role)=>role==='v'?'Vorsilbe':role==='s'?'Wortstamm':role==='e'?(['en','er'].includes(part)?'Endung':'Nachsilbe'):'Wortteil';
+function buildCards(r,extraDist){ /* Karten ohne zweite Zerlegung */
+  const cards=[...r.parts,...extraDist]; if(ordersEqual(cards,r.parts.length,r.w,r.parts.map((p,i)=>i))>0) return null; if(realOrders(cards,r.parts.length,lc(r.w)).length) return null; return shuffle(cards);
+}
+function genBau(L,ctx,v){
+  const mk=(r,vv)=>({k:'bau',v:vv,strat:'bau',key:[lc(r.w)],ref:r.w,word:r.w,parts:r.parts.slice(),roles:r.roles.slice()});
+  if(v==='role'){
+    const r=takeRow(poolOf(BAU,L,x=>x.roles.filter(q=>q==='s').length===1&&!x.roles.includes('g')),ctx,kW); if(!r) return null;
+    const asked=pick(r.roles.filter(q=>r.roles.filter(z=>z===q).length===1));
+    const idx=r.roles.indexOf(asked);
+    return Object.assign(mk(r,'role'),{asked,askedName:roleName(r.parts[idx],asked),ans:idx,
+      hint:'Der Wortstamm trägt die Grundbedeutung. Vorsilben stehen vorn, Endungen und Nachsilben hinten.',ok:`${r.parts.join(' + ')} → ${ASM(r.parts)}: ${r.parts[idx]} ist ${asked==='v'?'die Vorsilbe':asked==='s'?'der Wortstamm':'die '+roleName(r.parts[idx],asked)}.`});
+  }
+  if(v==='cut'){
+    const r=takeRow(poolOf(BAU,L,x=>x.w.length<=7),ctx,kW); if(!r) return null; let n=0; const cuts=r.parts.slice(0,-1).map(p=>n+=p.length);
+    return Object.assign(mk(r,'cut'),{cuts,hint:'Suche zuerst den Wortstamm. Wo beginnt ein neuer Baustein?',ok:`${r.parts.join(' + ')} → ${r.w}`});
+  }
+  for(let tries=0;tries<20;tries++){
+    const r=takeRow(poolOf(BAU,L,x=>!x.roles.includes('g')),ctx,kW); if(!r) return null;
+    const cards=buildCards(r,r.dist); if(!cards) continue;
+    return Object.assign(mk(r,'build'),{cards,labels:L===0||(L===1&&r.parts.length===3),
+      hint:'Suche zuerst den Wortstamm. Dann die Teile davor und danach.',ok:`${r.parts.join(' + ')} → ${ASM(r.parts)}`});
+  } return null;
+}
+
+/* ---------------- Anwendungsschritte (für Fehlerdetektor und Strategiezentrale) ---------------- */
+function applyVerl(r,L){ const f=verlFields(r,L); return {s:'verl',ref:r.w,stem:f.stem,form:f.form,forms:f.forms,ltr:f.ltr,alt:f.alt,letters:f.letters,word:r.w}; }
+function applyAbl(r){ const f=ablFields(r); return {s:'abl',ref:r.w,pre:r.pre,suf:r.suf,okL:r.ok,badL:r.bad,helper:r.help,opts:f.opts,letters:f.letters,word:r.w}; }
+function applySilb(r,L){ const extra=L===0?0:1; for(let i=0;i<20;i++){ const cards=silbOrderCards(r,extra,L); if(cards) return {s:'silb',ref:r.w,word:r.w,syl:r.syl.slice(),cards}; } return null; }
+function applyBau(r,bp,L){ const cards=buildCards(r,[bp.wrongPart,r.dist[0]]); if(!cards) return null; return {s:'bau',ref:r.w,word:r.w,parts:r.parts.slice(),roles:r.roles.slice(),cards,labels:L===0}; }
+function pickStrats(correct,L){
+  if(L===0) return [correct];
+  const others=shuffle(STRAT_IDS.filter(s=>s!==correct));
+  return shuffle(L===1?[correct,others[0]]:[correct,...others]);
+}
+const strongHintFor=s=>({verl:'Hänge etwas an das Wort an. Dann hörst du den Buchstaben deutlich.',abl:'Suche ein Wort aus der gleichen Familie und schau auf den Buchstaben.',silb:'Sprich das Wort in Silben und schau dir den Silbenanfang an.',bau:'Suche die Wortbausteine. Der Wortstamm bleibt gleich.'}[s]);
+
+/* ---------------- 5 Fehlerdetektor ---------------- */
+function genFehl(L,ctx,want){
+  let rows=poolOf(FEHL,L,x=>!want||x.strat===want); if(!rows.length) rows=poolOf(FEHL,L);
+  const r=takeRow(rows,ctx,kFEHL); if(!r) return null;
+  const tokens=r.sent.split(' ');
+  const idx=tokens.findIndex(t=>t.replace(/[.,!?]/g,'')===r.wrong); const punct=tokens[idx].slice(r.wrong.length);
+  let ap=null;
+  if(r.strat==='verl') ap=applyVerl(VERLW[r.ref],L);
+  else if(r.strat==='abl') ap=applyAbl(ABLW[r.ref]);
+  else if(r.strat==='silb') ap=applySilb(SILBW[r.ref],L);
+  else ap=applyBau(BAUW[r.ref],BAUPW[r.ref],L);
+  if(!ap) return null;
+  return {k:'fehl',v:'std',strat:r.strat,key:[lc(r.ref)],ref:r.ref,sent:r.sent,tokens,idx,wrong:r.wrong,right:r.right,punct,fixed:r.sent.replace(r.wrong,r.right),
+    stratOpts:pickStrats(r.strat,L),named:L===0,ap,
+    hint:'Lies den Satz langsam Wort für Wort. Ein Wort ist falsch geschrieben.',hint2:strongHintFor(r.strat),
+    ok:`${r.wrong} → ${r.right}`};
+}
+
+/* ---------------- 6 Strategiezentrale ---------------- */
+function probeText(s,r){
+  if(s==='verl') return {probe:r.w.slice(0,-1)+'_',text:'Du bist bei dem letzten Buchstaben von {P} unsicher.'};
+  if(s==='abl') return {probe:r.pre+'_'+r.suf,text:'Du bist bei dem Buchstaben in der Lücke von {P} unsicher.'};
+  if(s==='silb'){ const b=SILB_BOUND(r).find((n,i)=>lc(r.w[n-1])===lc(r.w[n])); const p=r.w.slice(0,b-1)+'_'+r.w.slice(b+1); return {probe:p,text:'Du bist bei den Konsonanten in der Wortmitte von {P} unsicher.'}; }
+  return {probe:null,text:null};
+}
+function genStrat(L,ctx,want){
+  const s=want||pick(STRAT_IDS);
+  let r,ap,probe,text,key;
+  if(s==='verl'){ r=takeRow(poolOf(VERL,L),ctx,kW); if(!r) return null; ap=applyVerl(r,L); key=[lc(r.w)]; ({probe,text}=probeText(s,r)); }
+  else if(s==='abl'){ r=takeRow(poolOf(ABL,L),ctx,kABL); if(!r) return null; ap=applyAbl(r); key=kABL(r); ({probe,text}=probeText(s,r)); }
+  else if(s==='silb'){ r=takeRow(poolOf(SILB,L,x=>x.art==='dk'),ctx,kW); if(!r) return null; ap=applySilb(r,L); key=[lc(r.w)]; ({probe,text}=probeText(s,r)); }
+  else { r=takeRow(BAUP.filter(x=>lvOk(x,L)),ctx,kW); if(!r) return null; const b=BAUW[r.w]; ap=applyBau(b,r,L); key=[lc(r.w)];
+    probe=r.art==='v'?'_'+r.w.slice(r.part.length):r.w.slice(0,r.w.length-r.part.length)+'_';
+    text=r.art==='v'?'Du bist bei der Vorsilbe von {P} unsicher.':'Du bist bei der Nachsilbe von {P} unsicher.'; }
+  if(!ap) return null;
+  return {k:'strat',v:'std',strat:s,key,ref:r.w,probe,text,ap,stratOpts:pickStrats(s,L),named:L===0,
+    hint:'Schau dir die Stelle genau an. Welche Strategie passt zu dieser Stelle?',hint2:strongHintFor(s),ok:`${STRATS[s].name}`};
+}
+
+/* ---------------- Aufgabenerzeugung ---------------- */
+const VARIANTS={
+  verl:[['std','std','std','conn'],['std','std','conn'],['sent','sent','conn','std']],
+  abl:[['std','std','std','conn'],['std','std','conn'],['sent','sent','conn','std']],
+  silb:[['order','spell','cut'],['order','cut','spell','halves'],['cut','halves','spell','order']],
+  bau:[['build','role'],['build','role','cut'],['build','cut','role']],
+  fehl:[[null],[null],[null]], strat:[[null],[null],[null]]
+};
+const TYPE_BY_MODE={1:'verl',2:'abl',3:'silb',4:'bau',5:'fehl',6:'strat'};
+const MODE_TYPES=['verl','abl','silb','bau','fehl','strat'];
+function genOne(type,L,ctx,v,want){
+  if(type==='verl') return genVerl(L,ctx,v);
+  if(type==='abl') return genAbl(L,ctx,v);
+  if(type==='silb') return genSilb(L,ctx,v);
+  if(type==='bau') return genBau(L,ctx,v);
+  if(type==='fehl') return genFehl(L,ctx,want);
+  return genStrat(L,ctx,want);
+}
+function finalizeTask(t,L){ t.L=L; t.full=t.k+':'+t.v+':'+(t.refs?t.refs.join(','):t.ref||t.key[0]); return t; }
+
+/* Unabhängige Prüfung jeder Aufgabe (arbeitet auf den Rohdaten, nicht auf den Generatorfeldern). Rückgabe: null oder Fehlertext */
+function validateApply(ap){
+  if(!ap) return 'apply fehlt';
+  if(ap.s==='verl'){ const r=VERLW[ap.ref]; if(!r) return 'verl ref';
+    if(ap.forms.length!==3||new Set(ap.forms).size!==3||ap.forms.filter(f=>f===r.form).length!==1) return 'verl Formen';
+    if(ap.forms.some(f=>f!==r.form&&(VERL.some(x=>x.form===f)||REALSET.has(lc(f))))) return 'verl falsche Form ist echtes Wort';
+    if(new Set(ap.letters).size!==ap.letters.length||ap.letters.filter(l=>l===r.ltr).length!==1||!ap.letters.includes(r.alt)) return 'verl Buchstaben';
+    if(ap.stem+r.ltr!==r.w) return 'verl Stamm'; if(r.form.charAt(r.w.length-1)!==r.ltr) return 'verl Form Ziel'; }
+  else if(ap.s==='abl'){ const r=ABLW[ap.ref]; if(!r) return 'abl ref';
+    if(ap.opts.length!==3||new Set(ap.opts).size!==3||ap.opts.filter(o=>o===r.help).length!==1) return 'abl Optionen';
+    if(ap.letters.length!==2||new Set(ap.letters).size!==2||ap.letters.filter(l=>l===r.ok).length!==1) return 'abl Buchstaben';
+    if(ap.pre+r.ok+ap.suf!==r.w) return 'abl Zusammenbau'; if(ap.opts.some(o=>o!==r.help&&lc(o)===lc(r.help))) return 'abl Ablenker=Hilfe'; }
+  else if(ap.s==='silb'){ const r=SILBW[ap.ref]; if(!r) return 'silb ref'; if(r.syl.join('')!==r.w) return 'silb Silben';
+    if(ordersEqual(ap.cards,r.syl.length,r.w,r.syl.map((s,i)=>i))!==0) return 'silb alternative Reihenfolge';
+    if(realOrders(ap.cards,r.syl.length,lc(r.w)).length) return 'silb Karten ergeben anderes Wort';
+    if(!r.syl.every(s=>ap.cards.includes(s))) return 'silb Karten fehlen'; }
+  else if(ap.s==='bau'){ const r=BAUW[ap.ref]; if(!r) return 'bau ref';
+    if(ordersEqual(ap.cards,r.parts.length,r.w,r.parts.map((s,i)=>i))!==0) return 'bau alternative Zerlegung';
+    if(realOrders(ap.cards,r.parts.length,lc(r.w)).length) return 'bau Karten ergeben anderes Wort'; if(!r.parts.every(s=>ap.cards.includes(s))) return 'bau Karten fehlen'; if(new Set(ap.cards).size!==ap.cards.length) return 'bau doppelte Karten'; }
+  else return 'apply Typ';
+  return null;
+}
+function validateTask(t){
+  try{
+    if(!t||!t.k||!t.full) return 'leer';
+    const js=JSON.stringify(t); if(/undefined|NaN/.test(js)) return 'undefiniert'; if(!t.hint||!t.ok) return 'Text fehlt';
+    const rev=(s,list)=>list.some(x=>x&&s.includes(x));
+    if(t.k==='verl'){
+      if(t.v==='conn') return validateConn(t,VERLW,r=>({l:r.w.slice(0,-1)+'_',r:r.form}),(a,b)=>PLAIN(a.w.slice(0,-1))===PLAIN(b.w.slice(0,-1)),(a,b)=>b.form.length>a.w.length&&PLAIN(b.form.slice(0,a.w.length-1))===PLAIN(a.w.slice(0,-1)));
+      const e=validateApply(applyShape(t,'verl')); if(e) return e; if(rev(t.hint,[t.word,t.form])) return 'Hinweis verrät Lösung';
+      if(t.v==='sent'&&!t.satz.includes(t.word)) return 'Satz'; }
+    else if(t.k==='abl'){
+      if(t.v==='conn') return validateConn(t,ABLW,r=>({l:r.pre+'_'+r.suf,r:r.help}),()=>false,()=>false);
+      const e=validateApply(applyShape(t,'abl')); if(e) return e; if(rev(t.hint,[t.helper,t.word])) return 'Hinweis verrät Lösung'; if(t.v==='sent'&&!t.satz.includes(t.word)) return 'Satz'; }
+    else if(t.k==='silb'){
+      const r=SILBW[t.refs?t.refs[0]:t.ref]; if(!r) return 'silb ref';
+      if(t.v==='halves') return validateConn(t,SILBW,x=>({l:x.syl[0],r:x.syl[1]}),(a,b)=>lc(a.syl[0])===lc(b.syl[0])||lc(a.syl[1])===lc(b.syl[1]),(a,b)=>REALSET.has(lc(a.syl[0]+b.syl[1])));
+      if(t.v==='order'){ const e=validateApply({s:'silb',ref:t.ref,cards:t.cards}); if(e) return e; if(t.cards.length!==r.syl.length+(t.L===0?0:t.L===1?1:2)) return 'silb Kartenzahl'; if(t.cards.length>r.syl.length&&r.syl.some(s=>t.cards.filter(c=>c===s).length!==1)) return 'silb Karten doppelt'; }
+      if(t.v==='order'&&!t.gap.includes('____')) return 'order Satz';
+      if(t.v==='cut'){ if(r.w.length>7) return 'cut zu lang'; const c=SILB_BOUND(r); if(JSON.stringify(c)!==JSON.stringify(t.cuts)) return 'silb Schnitte'; }
+      if(t.v==='spell'){ if(r.art!=='dk') return 'spell nur dk'; if(t.opts.length!==2||new Set(t.opts).size!==2||t.opts.filter(o=>o===r.w).length!==1||!t.opts.includes(r.wrong)) return 'spell Optionen'; if(!r.satz.includes(r.w)||!t.gap.includes('____')) return 'spell Satz'; if(REALSET.has(lc(r.wrong))) return 'spell falsche Schreibung ist Wort'; }
+      if(rev(t.hint,[r.w,r.wrong])) return 'Hinweis verrät Lösung'; }
+    else if(t.k==='bau'){
+      const r=BAUW[t.ref]; if(!r) return 'bau ref';
+      if(t.v==='build'){ if(r.roles.includes('g')) return 'build Kompositum'; const e=validateApply({s:'bau',ref:t.ref,cards:t.cards}); if(e) return e; if(t.cards.length!==r.parts.length+2) return 'bau Kartenzahl'; }
+      if(t.v==='role'){ if(r.roles.filter(q=>q===t.asked).length!==1||r.roles[t.ans]!==t.asked) return 'bau Rolle'; if(r.roles.includes('g')) return 'bau Rolle Kompositum'; }
+      if(t.v==='cut'){ if(r.w.length>7) return 'cut zu lang'; let n=0; const c=r.parts.slice(0,-1).map(p=>n+=p.length); if(JSON.stringify(c)!==JSON.stringify(t.cuts)) return 'bau Schnitte'; }
+      if(rev(t.hint,[r.w])) return 'Hinweis verrät Lösung'; }
+    else if(t.k==='fehl'){
+      const r=FEHL.find(x=>x.ref===t.ref&&x.strat===t.strat); if(!r) return 'fehl ref';
+      const toks=t.sent.split(' '); if(toks.filter(x=>x.replace(/[.,!?]/g,'')===r.wrong).length!==1) return 'Fehlerwort nicht eindeutig';
+      if(t.tokens.join(' ')!==r.sent||t.tokens[t.idx].replace(/[.,!?]/g,'')!==r.wrong) return 'Fehlerposition';
+      if(t.stratOpts.length!==(t.L===0?1:t.L===1?2:4)||new Set(t.stratOpts).size!==t.stratOpts.length||t.stratOpts.filter(s=>s===r.strat).length!==1) return 'Strategieoptionen';
+      const e=validateApply(t.ap); if(e) return e; if(t.ap.s!==r.strat) return 'Anwendung passt nicht zur Strategie';
+      if(t.strat==='bau'&&BAUPW[t.ref].wrongWord!==r.wrong) return 'bau Fehlerform'; }
+    else if(t.k==='strat'){
+      if(t.stratOpts.length!==(t.L===0?1:t.L===1?2:4)||new Set(t.stratOpts).size!==t.stratOpts.length||t.stratOpts.filter(s=>s===t.strat).length!==1) return 'Strategieoptionen';
+      const e=validateApply(t.ap); if(e) return e; if(t.ap.s!==t.strat) return 'Anwendung passt nicht zur Strategie';
+      if(!t.text.includes('{P}')||!t.probe||!t.probe.includes('_')) return 'Problemstelle';
+      if(t.text.includes(t.ref)) return 'Problemstelle nennt Wort';
+      /* die Problemstelle bestimmt die Strategie eindeutig (Auslaut / ä-äu / Wortmitte / Vor-Nachsilbe) */
+      const spot={verl:/letzten Buchstaben/,abl:/Buchstaben in der Lücke/,silb:/Konsonanten in der Wortmitte/,bau:/Vorsilbe|Nachsilbe/}[t.strat]; if(!spot.test(t.text)) return 'Problemstelle passt nicht zur Strategie'; }
+    else return 'Typ';
+    return null;
+  }catch(e){ return 'Ausnahme: '+e.message; }
+}
+function applyShape(t,s){ return s==='verl'?{s:'verl',ref:t.ref,stem:t.stem,form:t.form,forms:t.forms,ltr:t.ltr,alt:t.alt,letters:t.letters}:{s:'abl',ref:t.ref,pre:t.pre,suf:t.suf,okL:t.okL,badL:t.badL,helper:t.helper,opts:t.opts,letters:t.letters}; }
+function validateConn(t,W,fn,sameFn,crossFn){
+  if(t.pairs.length!==3||t.refs.length!==3||new Set(t.refs).size!==3) return 'conn Paare';
+  const rows=t.refs.map(w=>W[w]); if(rows.some(r=>!r)) return 'conn ref';
+  if(JSON.stringify(t.pairs.map(p=>p.l))!==JSON.stringify(rows.map(r=>fn(r).l))||JSON.stringify(t.pairs.map(p=>p.r))!==JSON.stringify(rows.map(r=>fn(r).r))) return 'conn Paare falsch';
+  const ls=t.pairs.map(p=>lc(p.l)), rs=t.pairs.map(p=>lc(p.r)); if(new Set(ls).size!==3||new Set(rs).size!==3) return 'conn doppelt';
+  for(let i=0;i<3;i++) for(let j=0;j<3;j++){ if(i!==j&&(sameFn(rows[i],rows[j])||crossFn(rows[i],rows[j]))) return 'conn mehrdeutig'; }
+  if([...t.left].sort().join()!=='0,1,2'||[...t.right].sort().join()!=='0,1,2') return 'conn Reihenfolge';
+  return null;
+}
+
+/* ---------------- Runde ---------------- */
+function makeTask(type,L,ctx,v,want){
+  for(let i=0;i<60;i++){
+    const t=genOne(type,L,ctx,v,want); if(!t) continue; finalizeTask(t,L);
+    const e=validateTask(t); if(!e) return t; makeTask.rejected=(makeTask.rejected||0)+1; makeTask.lastErr=e;
+  } return null;
+}
+function mixSequence(){
+  for(let tries=0;tries<400;tries++){
+    const seq=shuffle([...MODE_TYPES,pick(MODE_TYPES),pick(MODE_TYPES)]);
+    if(seq.every((t,i)=>i===0||t!==seq[i-1])&&MODE_TYPES.every(t=>seq.filter(x=>x===t).length<=2)) return seq;
+  } return ['verl','abl','silb','bau','fehl','strat','verl','silb'];
+}
+function makeRound(mode,L,hist){
+  const histSet=new Set(hist||[]);
+  for(let attempt=0;attempt<40;attempt++){
+    const ctx={used:new Set(),hist:histSet}; const tasks=[]; let ok=true;
+    const seq=mode===7?mixSequence():Array(8).fill(TYPE_BY_MODE[mode]);
+    const stratCount={verl:0,abl:0,silb:0,bau:0}, vcount={};
+    for(let i=0;i<8&&ok;i++){
+      const type=seq[i]; let t=null;
+      const vs=VARIANTS[type][L];
+      const order=shuffle(vs.map((v,j)=>j)).map(j=>vs[j]);
+      /* Varianten abwechseln: bevorzuge die am seltensten verwendete */
+      order.sort((a,b)=>((vcount[type+a]||0)-(vcount[type+b]||0)));
+      let want=null;
+      if(type==='fehl'||type==='strat'){ const least=STRAT_IDS.filter(s=>(stratCount[s]||0)<(mode===7?3:3)).sort((a,b)=>stratCount[a]-stratCount[b]); want=least.length?pick(least.filter(s=>stratCount[s]===stratCount[least[0]])):null; }
+      for(const v of order){ if(type==='fehl'||type==='strat'){ t=makeTask(type,L,ctx,v,want); } else t=makeTask(type,L,ctx,v); if(t) break; }
+      if(!t){ ok=false; break; }
+      t.key.forEach(k=>ctx.used.add(k)); tasks.push(t); vcount[type+(t.v||'')]=(vcount[type+(t.v||'')]||0)+1;
+      stratCount[t.strat]=(stratCount[t.strat]||0)+1;
+    }
+    if(!ok) continue;
+    if(mode===7){ const ty=tasks.map(t=>t.k); if(new Set(ty).size<6||ty.some((x,i)=>i&&x===ty[i-1])) continue; }
+    if(Object.values(stratCount).some(n=>n>3)&&mode!==1&&mode!==2&&mode!==3&&mode!==4) continue;
+    tasks.forEach(t=>t.key.forEach(k=>{ hist.push(k); })); while(hist.length>80) hist.shift();
+    return {mode,L,tasks};
+  }
+  throw new Error('Runde konnte nicht geplant werden: Modus '+mode+' Stufe '+L+' '+(makeTask.lastErr||''));
+}
+/* ===== Neue Wortbilder (Stil wie ART, viewBox 0 0 100 100) – Tiere ===== */
+const K={ink:'#3a3226',brn:'#a97a4d',brnd:'#7a5a3a',terr:'#d97e55',terrd:'#b45e39',must:'#eec14a',mustd:'#c99a1f',sage:'#8fa888',sagel:'#a8c0a1',saged:'#5f7d62',blue:'#8fb9c9',blued:'#5f8ea3',rose:'#d98a92',roseD:'#b0626c',crm:'#fffdf8',tan:'#e0b985',tanl:'#f3e0c0',grey:'#b9b3a6',greyd:'#8a8578',wht:'#f4efe4',red:'#c4503a',redd:'#8f3524',dk:'#47403a'};
+const eye=(x,y,r=3.4)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${K.ink}"/><circle cx="${x+r*.35}" cy="${y-r*.35}" r="${r*.35}" fill="#fff"/>`;
+const SK='#f0c49a', SKD='#c18a5e';
+/* ===== Kinderfiguren (Puppen) in verschiedenen Posen – viewBox 0 0 100 170 ===== */
+const SKINS=['#f3c9a5','#d9a066','#a8714a','#7a4e32','#efd3bb'];
+const OUT=' stroke="#3a3226" stroke-opacity=".45" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"';
+const limb=(d,col,w)=>`<path d="${d}" fill="none" stroke="#3a3226" stroke-opacity=".4" stroke-width="${w+3}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const POSES={
+  stand:{legs:[[44,112,44,138,42,160],[56,112,56,138,58,160]],arms:[[36,72,30,92,32,112],[64,72,70,92,68,112]],head:[50,38],tilt:0,torso:0,eyes:'open',mouth:'smile'},
+  horn:{legs:[[44,112,44,138,42,160],[56,112,56,138,58,160]],arms:[[36,72,30,92,32,110],[63,72,84,74,72,40]],head:[48,40],tilt:8,torso:0,eyes:'closed',mouth:'o',
+    prop:`<path d="M72 36 L100 12 L106 38 L76 46Z" fill="${K.terr}" stroke="${K.terrd}" stroke-width="2.600" stroke-linejoin="round"/><ellipse cx="103" cy="25" rx="4.500" ry="13.500" fill="${K.tanl}" stroke="${K.terrd}" stroke-width="2.600" transform="rotate(-14 103 25)"/><path d="M80 34 L96 28 M80 40 L98 36" stroke="${K.terrd}" stroke-width="1.600" opacity=".6"/>`},
+  kneel:{legs:[[44,120,62,148,34,160],[52,120,76,134,78,160]],arms:[[40,84,56,108,70,138],[58,82,76,108,88,140]],head:[60,56],tilt:14,torso:12,tx:4,eyes:'open',mouth:'smile',
+    propFront:`<rect x="82" y="142" width="20" height="14" rx="2.500" fill="${K.crm}" stroke="${K.brnd}" stroke-width="2.200" transform="rotate(-8 92 149)"/><circle cx="92" cy="149" r="3.500" fill="${K.terr}"/>`},
+  balance:{legs:[[48,112,48,138,48,160],[53,112,68,126,80,118]],arms:[[36,74,18,70,4,64],[64,74,82,70,96,64]],head:[50,38],tilt:-6,torso:0,eyes:'open',mouth:'o'},
+  hang:{legs:[[44,112,44,138,42,160],[56,112,56,138,58,160]],arms:[[36,72,26,94,38,100],[63,70,76,48,80,24]],head:[52,38],tilt:6,torso:0,eyes:'open',mouth:'smile',
+    prop:`<rect x="74" y="4" width="22" height="18" rx="2.500" fill="${K.crm}" stroke="${K.brnd}" stroke-width="2.200" transform="rotate(8 85 13)"/><circle cx="85" cy="13" r="4" fill="${K.sage}" transform="rotate(8 85 13)"/>`},
+  sit:{legs:[[48,118,76,122,80,152],[54,116,84,116,90,146]],arms:[[36,74,34,96,48,104],[64,74,70,96,60,106]],head:[50,40],tilt:-4,torso:0,eyes:'open',mouth:'smile'},
+  hold:{legs:[[44,112,44,138,42,160],[56,112,56,138,58,160]],arms:[[36,72,30,92,32,112],[64,72,80,84,90,68]],head:[52,38],tilt:4,torso:0,eyes:'open',mouth:'smile',
+    propFront:`<path d="M90 68 Q98 52 88 48 Q82 58 90 68Z" fill="${K.sage}" stroke="${K.saged}" stroke-width="2.200" stroke-linejoin="round"/><path d="M90 68 L88 50" stroke="${K.saged}" stroke-width="1.600"/>`},
+  cheer:{legs:[[44,112,42,138,40,160],[56,112,58,138,60,160]],arms:[[36,70,20,50,14,22],[64,70,80,50,86,22]],head:[50,38],tilt:0,torso:0,eyes:'open',mouth:'big'},
+  listen:{legs:[[44,112,44,138,42,160],[56,112,56,138,58,160]],arms:[[36,72,30,92,32,112],[64,72,66,50,62,34]],head:[50,40],tilt:10,torso:0,eyes:'closed',mouth:'smile'}
+};
+const HAIR={
+  short:(c,hx,hy)=>`<path d="M${hx-20} ${hy-2} Q${hx-22} ${hy-24} ${hx} ${hy-24} Q${hx+22} ${hy-24} ${hx+20} ${hy-2} Q${hx+12} ${hy-14} ${hx} ${hy-13} Q${hx-12} ${hy-14} ${hx-20} ${hy-2}Z" fill="${c}"${OUT}/>`,
+  bun:(c,hx,hy)=>`<circle cx="${hx}" cy="${hy-26}" r="8" fill="${c}"${OUT}/><path d="M${hx-20} ${hy-2} Q${hx-22} ${hy-24} ${hx} ${hy-24} Q${hx+22} ${hy-24} ${hx+20} ${hy-2} Q${hx+12} ${hy-14} ${hx} ${hy-13} Q${hx-12} ${hy-14} ${hx-20} ${hy-2}Z" fill="${c}"${OUT}/>`,
+  curly:(c,hx,hy)=>`<g fill="${c}"${OUT}><circle cx="${hx-14}" cy="${hy-12}" r="9"/><circle cx="${hx-5}" cy="${hy-20}" r="9"/><circle cx="${hx+7}" cy="${hy-20}" r="9"/><circle cx="${hx+15}" cy="${hy-11}" r="9"/><circle cx="${hx}" cy="${hy-14}" r="10"/></g>`,
+  pony:(c,hx,hy)=>`<path d="M${hx+16} ${hy-12} Q${hx+34} ${hy-8} ${hx+26} ${hy+14} Q${hx+22} ${hy+2} ${hx+14} ${hy-6}Z" fill="${c}"${OUT}/>`+HAIR.short(c,hx,hy),
+  bob:(c,hx,hy)=>`<path d="M${hx-22} ${hy+10} Q${hx-24} ${hy-26} ${hx} ${hy-26} Q${hx+24} ${hy-26} ${hx+22} ${hy+10} Q${hx+16} ${hy+12} ${hx+14} ${hy+4} Q${hx+8} ${hy-12} ${hx-2} ${hy-12} Q${hx-14} ${hy-8} ${hx-14} ${hy+4} Q${hx-16} ${hy+12} ${hx-22} ${hy+10}Z" fill="${c}"${OUT}/>`
+};
+function puppet(o){
+  const p=POSES[o.pose]||POSES.stand, skin=o.skin||SKINS[0], shirt=o.shirt||K.sagel, pants=o.pants||K.blued, vest=o.vest||K.terr;
+  const [hx,hy]=p.head, st=OUT;
+  const leg=a=>limb(`M${a[0]} ${a[1]} Q${a[2]} ${a[3]} ${a[4]} ${a[5]}`,pants,12);
+  const shoe=a=>`<ellipse cx="${a[4]+(a[4]>a[2]?5:a[4]<a[2]?-5:3)}" cy="${a[5]+2}" rx="9" ry="5" fill="${K.brnd}"${st}/>`;
+  const arm=a=>limb(`M${a[0]} ${a[1]} Q${a[2]} ${a[3]} ${a[4]} ${a[5]}`,shirt,10.500);
+  const hand=a=>`<circle cx="${a[4]}" cy="${a[5]}" r="5.500" fill="${skin}"${st}/>`;
+  const eyes = p.eyes==='closed' ? `<path d="M${hx-12} ${hy-2} q4 4 8 0 M${hx+4} ${hy-2} q4 4 8 0" fill="none" stroke="#3a3226" stroke-width="2.200" stroke-linecap="round"/>` : `<circle cx="${hx-8}" cy="${hy-2}" r="2.500" fill="#3a3226"/><circle cx="${hx+9}" cy="${hy-2}" r="2.500" fill="#3a3226"/>`;
+  const mouth = p.mouth==='big' ? `<path d="M${hx-7} ${hy+7} Q${hx} ${hy+18} ${hx+7} ${hy+7}Z" fill="${K.terrd}"${st}/>` : p.mouth==='o' ? `<ellipse cx="${hx}" cy="${hy+9}" rx="3" ry="3.800" fill="${K.terrd}"/>` : `<path d="M${hx-7} ${hy+7} Q${hx} ${hy+13} ${hx+7} ${hy+7}" fill="none" stroke="#3a3226" stroke-width="2.200" stroke-linecap="round"/>`;
+  const tx=p.tx||0;
+  const coat=o.coat?`<rect x="31" y="62" width="38" height="58" rx="12" fill="${K.crm}"${st}/><path d="M50 70 V120" stroke="${K.greyd}" stroke-width="1.8" opacity=".6"/><path d="M38 100 h9 v10 h-9z M53 100 h9 v10 h-9z" fill="none" stroke="${K.greyd}" stroke-width="1.8" opacity=".7"/><circle cx="47" cy="82" r="1.8" fill="${K.greyd}"/><circle cx="47" cy="92" r="1.8" fill="${K.greyd}"/><path d="M40 62 L50 78 L46 62Z M60 62 L50 78 L54 62Z" fill="${o.collar||K.sagel}"${st}/>`:'';
+  const body=`<g transform="translate(${tx} 0) rotate(${p.torso||0} 50 90)"><rect x="33" y="62" width="34" height="52" rx="13" fill="${shirt}"${st}/><path d="M33 80 H67 V102 Q67 114 55 114 H45 Q33 114 33 102Z" fill="${vest}"${st}/>${coat}<path d="M42 62 Q50 72 58 62" fill="none" stroke="${o.scarf||K.must}" stroke-width="6" stroke-linecap="round"/></g>`;
+  const hat = o.hat==='cap' ? `<path d="M${hx-21} ${hy-8} Q${hx-20} ${hy-27} ${hx} ${hy-27} Q${hx+20} ${hy-27} ${hx+21} ${hy-8}Z" fill="${o.hatCol||K.terr}"${st}/><path d="M${hx+4} ${hy-9} H${hx+28} Q${hx+28} ${hy-3} ${hx+4} ${hy-5}Z" fill="${o.hatCol||K.terr}"${st}/>` : o.hat==='beanie' ? `<path d="M${hx-21} ${hy-6} Q${hx-22} ${hy-30} ${hx} ${hy-30} Q${hx+22} ${hy-30} ${hx+21} ${hy-6}Z" fill="${o.hatCol||K.must}"${st}/><rect x="${hx-22}" y="${hy-10}" width="44" height="7" rx="3" fill="${K.crm}"${st}/><circle cx="${hx}" cy="${hy-32}" r="4" fill="${K.crm}"${st}/>` : '';
+  const gog = o.goggles?`<path d="M${hx-22} ${hy-12} Q${hx} ${hy-18} ${hx+22} ${hy-12}" fill="none" stroke="${K.brnd}" stroke-width="4"/><circle cx="${hx-8}" cy="${hy-14}" r="7" fill="${K.blue}" fill-opacity=".75"${st}/><circle cx="${hx+8}" cy="${hy-14}" r="7" fill="${K.blue}" fill-opacity=".75"${st}/><path d="M${hx-3} ${hy-14} h6" stroke="${K.brnd}" stroke-width="3"/>`:'';
+  const hair = o.hat ? '' : (HAIR[o.style||'short'])(o.hair||K.brnd,hx,hy);
+  const head=`<g transform="rotate(${p.tilt||0} ${hx} ${hy+18})"><rect x="${hx-6}" y="${hy+12}" width="12" height="12" rx="4" fill="${skin}"${st}/><circle cx="${hx}" cy="${hy}" r="19.500" fill="${skin}"${st}/>${hair}${hat}${gog}${eyes}<circle cx="${hx-13}" cy="${hy+6}" r="3.800" fill="#e8a58f" opacity=".65"/><circle cx="${hx+13}" cy="${hy+6}" r="3.800" fill="#e8a58f" opacity=".65"/>${mouth}</g>`;
+  return `<g class="kid">${p.legs.map(leg).join('')}${p.legs.map(shoe).join('')}${body}${limb('M0 0','none',0).slice(0,0)}${arm(p.arms[0])}${hand(p.arms[0])}${p.prop||''}${head}${arm(p.arms[1])}${hand(p.arms[1])}${p.propFront||''}</g>`;
+}
+/* Kind an Position (x,y = linke obere Ecke), Breite w, optional gespiegelt */
+function kidAt(x,y,w,o,flip){ const h=w*1.7; return `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="-4 -6 112 176" overflow="visible"><g ${flip?'transform="translate(100 0) scale(-1 1)"':''}>${puppet(o)}</g></svg>`; }
+const KIDSET={
+  a:{skin:SKINS[0],hair:'#6b4a33',style:'pony',shirt:K.sagel,vest:K.terr,pants:K.blued,scarf:K.must},
+  b:{skin:SKINS[3],hair:'#2a1d16',style:'curly',shirt:K.tanl,vest:K.saged,pants:K.brnd,scarf:K.terr},
+  c:{skin:SKINS[1],hair:'#3a2a1e',style:'short',hat:'cap',hatCol:K.must,shirt:K.rose,vest:K.blued,pants:K.brnd,scarf:K.crm},
+  d:{skin:SKINS[4],hair:'#b8793e',style:'bun',shirt:K.blue,vest:K.red,pants:K.saged,scarf:K.crm},
+  e:{skin:SKINS[2],hair:'#241812',style:'bob',shirt:K.must,vest:K.sage,pants:K.blued,scarf:K.terr},
+  f:{skin:SKINS[0],hair:'#d29a52',style:'short',hat:'beanie',hatCol:K.terr,shirt:K.blue,vest:K.saged,pants:K.brnd,scarf:K.must}
+};
+const kidSvg=(pose,set)=>puppet(Object.assign({},KIDSET[set||'a'],{pose}));
+/* ===== Rechtschreib-Labor: Bilder (nur Formen, keine Buchstaben in den Stationsbildern) ===== */
+const SPEAKER=`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9 H7 L12 4.500 V19.500 L7 15 H3Z" fill="currentColor"/><path class="wave" d="M15.500 8.500 Q18.500 12 15.500 15.500 M18 5.500 Q23 12 18 18.500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="slash" d="M16 8 L22 16 M22 8 L16 16" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"/></svg>`;
+const LAV='#c5b8dd', LAVD='#8b79b0';
+const O2=' stroke="#3a3226" stroke-opacity=".5" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"';
+/* Laborkinder: Kittel + Brille */
+Object.keys(KIDSET).forEach(k=>Object.assign(KIDSET[k],{coat:true,goggles:k!=='d',shirt:K.crm,collar:[K.sagel,K.rose,K.blue,K.must,K.terr,K.sage][k.charCodeAt(0)%6]}));
+const gear=(cx,cy,r,col,n=8)=>{ let d=''; for(let i=0;i<n;i++){ const a=i*2*Math.PI/n; const x=cx+Math.cos(a)*(r+5), y=cy+Math.sin(a)*(r+5); d+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="${col}"${O2}/>`; } return d+`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${col}"${O2}/><circle cx="${cx}" cy="${cy}" r="${r*.35}" fill="${K.crm}"${O2}/>`; };
+const bubble=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" fill-opacity=".55" stroke="#fff" stroke-opacity=".9" stroke-width="2"/>`;
+const STATION_ART={
+ verl:`<ellipse cx="100" cy="182" rx="80" ry="9" fill="#000" opacity=".12"/><rect x="18" y="140" width="164" height="38" rx="10" fill="${K.terr}"${O2}/><rect x="30" y="150" width="140" height="8" rx="4" fill="${K.terrd}" opacity=".5"/><rect x="30" y="60" width="16" height="84" rx="6" fill="${K.blue}"${O2}/><rect x="154" y="60" width="16" height="84" rx="6" fill="${K.blue}"${O2}/><path d="M46 100 l9 -14 l11 28 l11 -28 l11 28 l11 -28 l11 28 l11 -28 l9 14" fill="none" stroke="${K.greyd}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="52" y="28" width="96" height="22" rx="11" fill="${K.must}"${O2}/><rect x="60" y="34" width="20" height="10" rx="4" fill="${K.crm}"/><rect x="86" y="34" width="20" height="10" rx="4" fill="${K.rose}"/><rect x="112" y="34" width="28" height="10" rx="4" fill="${K.sage}"/><path d="M40 20 L26 28 L40 36 M160 20 L174 28 L160 36" fill="none" stroke="${K.terrd}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="100" cy="162" r="9" fill="${K.crm}"${O2}/><circle cx="100" cy="162" r="4" fill="${K.red}"/>`,
+ abl:`<ellipse cx="100" cy="184" rx="66" ry="8" fill="#000" opacity=".12"/><path d="M60 140 H140 L132 182 H68Z" fill="${K.terr}"${O2}/><rect x="56" y="134" width="88" height="12" rx="5" fill="${K.terrd}"${O2}/><path d="M100 136 V90 M100 112 Q78 100 66 78 M100 100 Q124 90 138 66 M100 90 Q100 66 100 52" fill="none" stroke="${K.brnd}" stroke-width="8" stroke-linecap="round"/><circle cx="64" cy="64" r="26" fill="${K.sage}"${O2}/><circle cx="100" cy="42" r="28" fill="${K.sagel}"${O2}/><circle cx="142" cy="56" r="26" fill="${K.sage}"${O2}/><rect x="40" y="76" width="22" height="16" rx="3" fill="${K.rose}"${O2} transform="rotate(-10 51 84)"/><rect x="138" y="72" width="22" height="16" rx="3" fill="${K.must}"${O2} transform="rotate(8 149 80)"/><rect x="88" y="62" width="22" height="16" rx="3" fill="${K.blue}"${O2}/><path d="M92 70 h14" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,
+ silb:`<ellipse cx="100" cy="186" rx="70" ry="8" fill="#000" opacity=".12"/><rect x="46" y="170" width="108" height="14" rx="6" fill="${K.brnd}"${O2}/><path d="M62 170 H138 L130 150 H70Z" fill="${K.sagel}"${O2}/><path d="M60 150 Q50 90 96 72" fill="none" stroke="${K.saged}" stroke-width="14" stroke-linecap="round"/><g transform="rotate(-28 110 80)"><rect x="92" y="28" width="30" height="78" rx="8" fill="${K.blue}"${O2}/><rect x="97" y="14" width="20" height="18" rx="5" fill="${K.greyd}"${O2}/><rect x="96" y="106" width="22" height="12" rx="3" fill="${K.greyd}"${O2}/></g><rect x="84" y="132" width="64" height="9" rx="3" fill="${K.crm}"${O2}/><rect x="92" y="127" width="14" height="6" rx="2" fill="${K.rose}"/><rect x="109" y="127" width="14" height="6" rx="2" fill="${K.must}"/><rect x="126" y="127" width="14" height="6" rx="2" fill="${K.terr}"/><circle cx="148" cy="46" r="14" fill="${K.must}"${O2}/><path d="M148 22 V14 M170 46 H178 M126 46 H118" stroke="${K.mustd}" stroke-width="4" stroke-linecap="round"/>`,
+ bau:`<ellipse cx="100" cy="186" rx="82" ry="8" fill="#000" opacity=".12"/><rect x="20" y="86" width="160" height="82" rx="14" fill="${K.blue}"${O2}/><rect x="32" y="146" width="136" height="12" rx="6" fill="${K.brnd}"${O2}/><path d="M64 34 H136 L116 70 H84Z" fill="${K.greyd}"${O2}/><rect x="88" y="68" width="24" height="20" fill="${K.greyd}"${O2}/>${gear(62,116,15,K.must)}${gear(112,112,19,K.terr,10)}<rect x="38" y="140" width="20" height="14" rx="3" fill="${K.rose}"${O2}/><rect x="62" y="140" width="34" height="14" rx="3" fill="${K.sage}"${O2}/><rect x="100" y="140" width="24" height="14" rx="3" fill="${K.must}"${O2}/><circle cx="150" cy="108" r="9" fill="${K.crm}"${O2}/><circle cx="150" cy="108" r="4" fill="${K.red}"/><rect x="94" y="10" width="12" height="26" rx="4" fill="${K.rose}"${O2}/>`,
+ fehl:`<ellipse cx="100" cy="186" rx="76" ry="8" fill="#000" opacity=".12"/><rect x="28" y="108" width="120" height="74" rx="8" fill="${K.crm}"${O2} transform="rotate(-4 88 145)"/><path d="M42 128 H128 M42 146 H116 M42 164 H108" stroke="${K.grey}" stroke-width="6" stroke-linecap="round" transform="rotate(-4 88 145)"/><path d="M60 150 q8 -10 16 0 t16 0 t16 0" fill="none" stroke="${K.red}" stroke-width="5" stroke-linecap="round" transform="rotate(-4 88 145)"/><circle cx="118" cy="76" r="48" fill="#dcebf1" fill-opacity=".7"${O2} stroke-width="8"/><circle cx="118" cy="76" r="48" fill="none" stroke="${K.terr}" stroke-width="9"/><path d="M100 58 Q108 46 124 46" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/><path d="M152 112 L184 150" stroke="${K.brnd}" stroke-width="16" stroke-linecap="round"/><path d="M152 112 L162 126" stroke="${K.terrd}" stroke-width="18" stroke-linecap="round"/>`,
+ strat:`<ellipse cx="100" cy="186" rx="82" ry="8" fill="#000" opacity=".12"/><path d="M24 178 V96 Q24 80 40 80 H160 Q176 80 176 96 V178Z" fill="${K.sagel}"${O2}/><rect x="40" y="38" width="120" height="50" rx="10" fill="${K.dk}"${O2}/><rect x="48" y="46" width="104" height="34" rx="6" fill="${K.saged}"/><path d="M56 56 H124 M56 68 H100" stroke="${K.crm}" stroke-width="5" stroke-linecap="round" opacity=".8"/><circle cx="140" cy="62" r="8" fill="${K.must}"${O2}/><circle cx="56" cy="116" r="15" fill="${K.terr}"${O2}/><circle cx="96" cy="116" r="15" fill="${K.blue}"${O2}/><circle cx="136" cy="116" r="15" fill="${K.rose}"${O2}/><circle cx="76" cy="152" r="15" fill="${K.must}"${O2}/><circle cx="116" cy="152" r="15" fill="${K.crm}"${O2}/><circle cx="154" cy="152" r="10" fill="${K.red}"${O2}/><path d="M100 38 V14 M100 14 l-10 -6 M100 14 l10 -6" fill="none" stroke="${K.greyd}" stroke-width="4" stroke-linecap="round"/><circle cx="100" cy="12" r="6" fill="${K.must}"${O2}/>`,
+ mix:`<ellipse cx="100" cy="186" rx="64" ry="8" fill="#000" opacity=".12"/><rect x="74" y="20" width="52" height="22" rx="7" fill="${K.brnd}"${O2}/><path d="M82 40 H118 V84 L168 160 Q176 178 156 180 H44 Q24 178 32 160 L82 84Z" fill="#e9e1f4" fill-opacity=".8"${O2}/><path d="M60 128 H140 L168 160 Q176 178 156 180 H44 Q24 178 32 160Z" fill="${LAV}" stroke="#3a3226" stroke-opacity=".5" stroke-width="3" stroke-linejoin="round"/>${bubble(70,150,8)}${bubble(104,142,6)}${bubble(130,156,9)}${bubble(96,166,5)}${bubble(104,100,7)}${bubble(96,68,5)}<path d="M160 30 l5 11 l12 1 l-9 8 l3 12 l-11 -6 l-11 6 l3 -12 l-9 -8 l12 -1z" fill="${K.must}"${O2}/><path d="M36 54 l4 8 l9 1 l-7 6 l2 9 l-8 -5 l-8 5 l2 -9 l-7 -6 l9 -1z" fill="${K.rose}"${O2}/><path d="M92 14 q-6 -10 2 -14 M110 12 q6 -10 -2 -14" fill="none" stroke="${LAVD}" stroke-width="3" stroke-linecap="round" opacity=".7"/>`
+};
+/* Strategie-Symbole (viewBox 0 0 48 48) */
+const STRAT_ICON={
+ verl:`<rect x="4" y="18" width="40" height="12" rx="6" fill="${K.must}"${O2}/><path d="M10 10 L3 24 L10 38 M38 10 L45 24 L38 38" fill="none" stroke="${K.terrd}" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/>`,
+ abl:`<path d="M24 44 V22 M24 32 Q14 28 10 18 M24 26 Q34 22 38 12" fill="none" stroke="${K.brnd}" stroke-width="4" stroke-linecap="round"/><circle cx="10" cy="14" r="8" fill="${K.sage}"${O2}/><circle cx="38" cy="10" r="8" fill="${K.sagel}"${O2}/><circle cx="24" cy="14" r="8" fill="${K.sage}"${O2}/>`,
+ silb:`<path d="M6 30 Q14 12 22 30 M24 30 Q32 12 40 30" fill="none" stroke="${K.blued}" stroke-width="4" stroke-linecap="round"/><circle cx="14" cy="38" r="3.500" fill="${K.rose}"/><circle cx="32" cy="38" r="3.500" fill="${K.rose}"/>`,
+ bau:`<rect x="4" y="22" width="12" height="16" rx="3" fill="${K.rose}"${O2}/><rect x="18" y="22" width="14" height="16" rx="3" fill="${K.sage}"${O2}/><rect x="34" y="22" width="10" height="16" rx="3" fill="${K.must}"${O2}/><rect x="12" y="6" width="22" height="13" rx="3" fill="${K.blue}"${O2}/>`
+};
+const stratSvg=(s,cls)=>`<svg class="${cls||'si'}" viewBox="0 0 48 48" aria-hidden="true">${STRAT_ICON[s]}</svg>`;
+/* Reagenzglas für den Forschungsfortschritt */
+const TUBE_COL=[K.rose,K.must,K.sage,K.blue,K.terr,LAV,K.sagel,K.rose];
+function tubeSvg(i){ const c=TUBE_COL[i%8]; return `<svg viewBox="0 0 24 56" aria-hidden="true"><clipPath id="tc${i}"><path d="M5 6 V42 a7 7 0 0 0 14 0 V6Z"/></clipPath><g clip-path="url(#tc${i})"><rect class="liq" x="0" y="8" width="24" height="48" fill="${c}"/></g><path d="M5 6 V42 a7 7 0 0 0 14 0 V6" fill="#fff" fill-opacity=".35" stroke="#3a3226" stroke-opacity=".6" stroke-width="2.400" stroke-linejoin="round" stroke-linecap="round"/><rect x="3" y="3" width="18" height="5" rx="2.500" fill="${K.crm}" stroke="#3a3226" stroke-opacity=".6" stroke-width="2"/><path d="M8.500 14 V30" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></svg>`; }
+const FLASK_BIG=`<svg viewBox="0 0 120 130" aria-hidden="true"><rect x="44" y="6" width="32" height="16" rx="5" fill="${K.brnd}"${O2}/><path d="M50 20 H70 V54 L108 108 Q116 124 98 126 H22 Q4 124 12 108 L50 54Z" fill="#e9e1f4" fill-opacity=".85"${O2}/><path d="M32 88 H88 L108 108 Q116 124 98 126 H22 Q4 124 12 108Z" fill="${LAV}"/><path d="M50 20 H70 V54 L108 108 Q116 124 98 126 H22 Q4 124 12 108 L50 54Z" fill="none"${O2}/>${bubble(44,104,6)}${bubble(70,98,5)}${bubble(82,112,7)}${bubble(60,116,4)}${bubble(62,40,5)}<path d="M96 22 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1z" fill="${K.must}"${O2}/></svg>`;
+/* Laborraum (Hintergrund der Startseite) */
+function labBg(w,h){
+  const jars=(x,y,n)=>{ let s=''; const cols=[K.rose,K.sage,K.must,K.blue,K.terr,LAV]; for(let i=0;i<n;i++){ const jx=x+i*46, c=cols[(i+n)%6]; s+=`<rect x="${jx}" y="${y-34}" width="30" height="34" rx="6" fill="#fff" fill-opacity=".55"${O2} stroke-width="2.200"/><rect x="${jx+3}" y="${y-22}" width="24" height="19" rx="4" fill="${c}"/><rect x="${jx+6}" y="${y-40}" width="18" height="7" rx="2" fill="${K.brnd}"/>`; } return s; };
+  return `<svg class="bgsvg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="${w}" height="${h}" fill="#fbf3e1"/><rect width="${w}" height="${h*.74}" fill="#e6efdf"/><g opacity=".5">${Array.from({length:Math.ceil(w/80)},(_,i)=>`<circle cx="${i*80+40}" cy="${(i%3)*60+30}" r="3" fill="#8fa888"/>`).join('')}</g><rect y="${h*.74}" width="${w}" height="${h*.26}" fill="#e9cfae"/><path d="M0 ${h*.74} H${w}" stroke="#a97a4d" stroke-width="6"/>${Array.from({length:Math.ceil(w/120)},(_,i)=>`<path d="M${i*120} ${h*.74} V${h}" stroke="#d3b185" stroke-width="3"/>`).join('')}<g transform="translate(${w*.78} ${h*.17})"><rect x="0" y="0" width="${Math.min(w*.2,260)}" height="8" rx="3" fill="${K.brnd}"/>${jars(10,0,Math.min(5,Math.floor(w*.2/46)))}</g><g transform="translate(${w*.52} ${h*.16})"><rect x="0" y="0" width="${Math.min(w*.18,220)}" height="8" rx="3" fill="${K.brnd}"/>${jars(12,0,Math.min(4,Math.floor(w*.18/46)))}</g></svg>`;
+}
+const kidsFlip=(pose,set)=>puppet(Object.assign({},KIDSET[set],{pose}));
+const labKid=(pose,set)=>`<svg viewBox="-4 -6 112 176" aria-hidden="true">${kidSvg(pose,set)}</svg>`;
+/* ===== Oberfläche 1: Grundgerüst, Sprachausgabe, Karte, Dialoge ===== */
+const $ = id => document.getElementById(id);
+function el(tag, cls, html){ const e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+const state={mode:null,lvl:0,sound:true,round:null,idx:0,task:null,locked:false,solved:false,hist:[],tries:0,sel:null,inGame:false,pendingMode:null};
+let timers=[]; function after(ms,fn){ const id=setTimeout(()=>{ timers=timers.filter(t=>t!==id); try{fn();}catch(e){} },ms); timers.push(id); return id; }
+function clearTimers(){ timers.forEach(clearTimeout); timers=[]; }
+const reduceMotion=()=>{ try{ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } };
+
+/* ---- Sprachausgabe (SpeechSynthesis, de-DE): nur nach Antippen eines Lautsprechers, das Spiel funktioniert auch ohne ---- */
+let voices=[];
+function loadVoices(){ try{ voices=window.speechSynthesis.getVoices()||[]; }catch(e){ voices=[]; } try{ if(typeof applySound==='function'&&document.getElementById('btn-sound')) applySound(); }catch(e){} }
+function speechOk(){ try{ return 'speechSynthesis' in window && typeof window.SpeechSynthesisUtterance!=='undefined' && !!window.speechSynthesis; }catch(e){ return false; } }
+function speechUsable(){ return speechOk() && (voices.length===0 || !!germanVoice()); }
+function soundActive(){ return state.sound && speechUsable(); }
+function germanVoice(){ return voices.find(v=>/^de[-_]/i.test(v.lang)) || voices.find(v=>/^de/i.test(v.lang)) || null; }
+function mkUtter(text,noVoice){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; u.rate=.8; u.pitch=1; u.volume=1; if(!noVoice){ const v=germanVoice(); if(v){ u.voice=v; u.lang=v.lang; } } return u; }
+let uKeep=[], spkSeq=0, spkWatch=null, spkStarted=false, spkFailShown=false, spkEver=false;
+function speechFail(){ if(spkFailShown||spkEver) return; spkFailShown=true; try{ if(state.inGame) setFb('hint','Kein Ton?','Prüfe die Lautstärke und den Stumm-Schalter. Manche Geräte haben keine deutsche Stimme. Die Wörter stehen auch auf dem Bildschirm.'); }catch(e){} }
+function speakList(list){
+  const s=window.speechSynthesis, seq=++spkSeq; spkStarted=false; clearTimeout(spkWatch);
+  try{ s.cancel(); }catch(e){}
+  setTimeout(()=>{
+    if(seq!==spkSeq) return;
+    try{ s.resume(); }catch(e){}
+    const go=noVoice=>{ list.forEach(t=>{ const u=mkUtter(t,noVoice); uKeep.push(u); if(uKeep.length>24) uKeep.shift();
+        u.onstart=()=>{ spkStarted=true; spkEver=true; clearTimeout(spkWatch); };
+        u.onerror=ev=>{ const er=ev&&ev.error; if(er==='interrupted'||er==='canceled') return; if(!spkStarted) speechFail(); };
+        try{ s.speak(u); }catch(e){} }); };
+    go(false);
+    spkWatch=setTimeout(()=>{ if(seq!==spkSeq||spkStarted) return; try{ s.cancel(); s.resume(); }catch(e){}
+      setTimeout(()=>{ if(seq!==spkSeq) return; go(true); spkWatch=setTimeout(()=>{ if(seq===spkSeq&&!spkStarted) speechFail(); },2200); },80); },1400);
+  },70);
+}
+function say(t){ if(!soundActive()) return; try{ speakList(Array.isArray(t)?t:[t]); }catch(e){} }
+function stopSay(){ try{ if(speechOk()){ spkSeq++; clearTimeout(spkWatch); window.speechSynthesis.cancel(); } }catch(e){} }
+(function(){ function unlock(){ try{ if(!speechOk()) return; const u=new SpeechSynthesisUtterance(' '); u.volume=0; u.lang='de-DE'; window.speechSynthesis.speak(u); }catch(e){} }
+  document.addEventListener('pointerdown',unlock,{once:true,capture:true}); document.addEventListener('keydown',unlock,{once:true,capture:true}); })();
+function voiceInfo(){ const n=voices.length, d=voices.filter(v=>/^de/i.test(v.lang)).length; return speechOk()?`Sprachausgabe: ${n} Stimmen gefunden, davon ${d} deutsche.`:'Sprachausgabe: in diesem Browser nicht verfügbar.'; }
+if(speechOk()){ loadVoices(); try{ window.speechSynthesis.addEventListener('voiceschanged',loadVoices); }catch(e){} }
+function applySound(){
+  ['btn-sound','btn-sound2'].forEach(id=>{ const b=$(id); b.innerHTML=SPEAKER; b.setAttribute('aria-pressed',String(soundActive())); b.disabled=!speechUsable(); b.hidden=!speechUsable();
+    b.setAttribute('aria-label',!speechUsable()?'Sprachausgabe ist nicht verfügbar':state.sound?'Sprachausgabe ist an. Zum Ausschalten drücken.':'Sprachausgabe ist aus. Zum Einschalten drücken.');
+    b.title=!speechUsable()?'Keine Sprachausgabe verfügbar':state.sound?'Sprachausgabe an':'Sprachausgabe aus'; });
+  document.body.classList.toggle('nosound',!soundActive());
+}
+function toggleSound(){ if(!speechUsable()) return; state.sound=!state.sound; if(!state.sound) stopSay(); applySound(); }
+function speakBtn(getText,label){
+  const b=el('button','spk'); b.type='button'; b.innerHTML=SPEAKER; b.setAttribute('aria-label',label||'Vorlesen'); b.title=label||'Vorlesen';
+  b.addEventListener('click',e=>{ e.stopPropagation(); const t=getText(); if(t&&t.length) say(t); }); return b;
+}
+
+/* ---- Stationen ---- */
+const MODES=[
+  {id:1,key:'verl',name:'Verlängerungsstation',art:'verl',desc:'Mach das Wort länger und finde den Buchstaben am Ende.',help:'Mach das Wort länger, zum Beispiel aus Hund wird Hunde. So hörst du den Buchstaben am Ende. Wähle die verlängerte Form und dann den richtigen Buchstaben.',
+    pos:{lx:'13%',ly:'30%',ls:'min(13vw,28dvh)',px:'27%',py:'11%',ps:'min(31vw,13dvh)'}},
+  {id:2,key:'abl',name:'Wortfamilien-Analyse',art:'abl',desc:'Finde ein verwandtes Wort und entscheide: ä oder e, äu oder eu?',help:'Suche ein verwandtes Wort, zum Beispiel zu Häuser das Wort Haus. Es zeigt dir, ob du ä oder e, äu oder eu schreibst.',
+    pos:{lx:'37%',ly:'30%',ls:'min(13vw,28dvh)',px:'73%',py:'11%',ps:'min(31vw,13dvh)'}},
+  {id:3,key:'silb',name:'Silben-Mikroskop',art:'silb',desc:'Untersuche Silben und Konsonanten in der Wortmitte.',help:'Sprich das Wort langsam in Silben. Setze Silben zusammen, finde das Ende einer Silbe oder wähle die richtige Schreibweise.',
+    pos:{lx:'61%',ly:'30%',ls:'min(13vw,28dvh)',px:'27%',py:'33%',ps:'min(31vw,13dvh)'}},
+  {id:4,key:'bau',name:'Wortbaustoffe',art:'bau',desc:'Baue Wörter aus Vorsilbe, Wortstamm und Endung.',help:'Wörter bestehen aus Bausteinen: Vorsilbe, Wortstamm, Endung oder Nachsilbe. Baue das Wort aus den Karten oder finde den Baustein.',
+    pos:{lx:'85%',ly:'30%',ls:'min(13vw,28dvh)',px:'73%',py:'33%',ps:'min(31vw,13dvh)'}},
+  {id:5,key:'fehl',name:'Fehlerdetektor',art:'fehl',desc:'Finde den Fehler im Satz und verbessere ihn mit einer Strategie.',help:'In jedem Satz ist ein Wort falsch geschrieben. Tippe es an, wähle die passende Strategie und verbessere das Wort.',
+    pos:{lx:'25%',ly:'70%',ls:'min(13vw,28dvh)',px:'27%',py:'55%',ps:'min(31vw,13dvh)'}},
+  {id:6,key:'strat',name:'Strategiezentrale',art:'strat',desc:'Welche Strategie hilft hier? Wähle sie und wende sie an.',help:'Du siehst eine Stelle, bei der man unsicher ist. Wähle die Strategie, die hilft, und wende sie dann an.',
+    pos:{lx:'50%',ly:'70%',ls:'min(13vw,28dvh)',px:'73%',py:'55%',ps:'min(31vw,13dvh)'}},
+  {id:7,key:'mix',name:'Das große Rechtschreib-Experiment',art:'mix',desc:'Alle Stationen gemischt: acht Aufgaben, jedes Mal anders.',help:'Hier sind alle Stationen gemischt. Lies jede Aufgabe genau und wende die passende Strategie an.',
+    pos:{lx:'75%',ly:'70%',ls:'min(15vw,32dvh)',px:'50%',py:'80%',ps:'min(38vw,16dvh)'}}
+];
+const LV_INFO=[['Leicht','Mit Beispiel und Hilfen, bekannte Wörter',1],['Mittel','Weniger Hilfen, mehr Auswahl',2],['Schwer','Längere Wörter, ganze Sätze, viele Strategien',3]];
+const star=on=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.500 L14.900 8.800 L21.700 9.500 L16.600 14.100 L18 20.800 L12 17.400 L6 20.800 L7.400 14.100 L2.300 9.500 L9.100 8.800Z" fill="${on?'#eec14a':'none'}" stroke="#7f5c12" stroke-width="1.800" stroke-linejoin="round"/></svg>`;
+
+function buildMap(){
+  const m=$('map'); m.innerHTML=''; const old=$('start').querySelector('.bgsvg'); if(old) old.remove(); $('start').insertAdjacentHTML('afterbegin',labBg(1600,900));
+  m.insertAdjacentHTML('beforeend',`<div class="deco kid1">${labKid('cheer','b')}</div><div class="deco kid2">${labKid('hold','c')}</div>`);
+  MODES.forEach(md=>{
+    const b=el('button','stn'); b.type='button'; b.dataset.mode=md.id;
+    Object.entries(md.pos).forEach(([k,v])=>b.style.setProperty('--'+k,v));
+    b.setAttribute('aria-label',md.name+'. '+md.desc);
+    b.innerHTML=`<svg class="art" viewBox="0 0 200 200" aria-hidden="true">${STATION_ART[md.art]}</svg><span class="num" aria-hidden="true">${md.id}</span><span class="lbl">${esc(md.name)}</span>`;
+    b.addEventListener('click',()=>openLevel(md.id)); m.appendChild(b);
+  });
+}
+function openLevel(id){
+  const md=MODES.find(x=>x.id===id); state.pendingMode=id;
+  $('dl-title').textContent=md.name; $('dl-desc').textContent=md.desc;
+  const box=$('dl-levels'); box.innerHTML='';
+  LV_INFO.forEach((li,i)=>{ const b=el('button','lvbtn'); b.type='button'; b.innerHTML=`<span class="stars">${[0,1,2].map(k=>star(k<li[2])).join('')}</span><span>${li[0]}<small>${li[1]}</small></span>`; b.addEventListener('click',()=>{ $('dlg-level').close(); startGame(id,i); }); box.appendChild(b); });
+  const d=$('dlg-level'); if(d.showModal) d.showModal(); else d.setAttribute('open','');
+  box.firstChild.focus();
+}
+function openHelp(){
+  const items=['Tippe im Labor auf eine Station und wähle eine Stufe.','In jeder Runde löst du acht Aufgaben. Für jede gelöste Aufgabe füllt sich oben ein Reagenzglas.'];
+  if(state.inGame&&state.mode){ const md=MODES.find(x=>x.id===state.mode); items.push(md.help); } else items.push('Jede Station hat eine andere Aufgabe. Probiere sie alle aus.');
+  items.push('Die vier Strategien heißen: Verlängern, Ableiten, Silben untersuchen und Wortbausteine erkennen.');
+  items.push('Das Lautsprecher-Zeichen liest die Aufgabe oder einen richtigen Satz vor.');
+  $('dh-list').innerHTML=items.map(t=>`<li>${esc(t)}</li>`).join('');
+  $('voice-info').textContent=voiceInfo(); $('btn-test').hidden=!speechUsable(); $('dh-voice').hidden=!speechOk();
+  const d=$('dlg-help'); if(d.showModal) d.showModal(); else d.setAttribute('open',''); $('dh-close').focus();
+}
+const PH_BAD=['Schau noch einmal genau.','Fast! Versuch es noch einmal.','Hmm, untersuche es noch einmal.','Noch nicht ganz. Du schaffst das!'];
+let badN=0;
+function setFb(kind,head,text){
+  const f=$('fb'); f.className=kind||'';
+  if(!head&&!text){ f.innerHTML=''; return; }
+  f.innerHTML=`<span class="fh">${esc(head||'')}</span><span class="ft">${esc(text||'')}</span>`;
+  $('live').textContent=(head||'')+' '+(text||'');
+}
+function badFb(extra){ setFb('bad',PH_BAD[badN++%PH_BAD.length],extra||''); state.tries++; if(state.tries>=2) $('btn-hint').classList.add('nudge'); }
+/* ===== Oberfläche 2: Runden, Aufgabenansichten, Ende ===== */
+function startGame(id,lvl){
+  stopSay(); clearTimers(); state.mode=id; state.lvl=lvl; state.inGame=true;
+  $('start').hidden=true; $('game').hidden=false;
+  const md=MODES.find(m=>m.id===id); $('g-name').textContent=md.name; $('g-lvl').textContent='Stufe: '+LV_INFO[lvl][0];
+  startRound();
+}
+function backToMap(){ stopSay(); clearTimers(); state.inGame=false; $('overlay').innerHTML=''; $('game').hidden=true; $('start').hidden=false; const b=document.querySelector('.stn[data-mode="'+state.mode+'"]'); if(b) b.focus({preventScroll:true}); }
+function startRound(){
+  clearTimers(); $('overlay').innerHTML=''; buildTubes();
+  state.round=makeRound(state.mode,state.lvl,state.hist); state.idx=0; renderTask();
+}
+function buildTubes(){ const r=$('tubes'); r.innerHTML=''; for(let i=0;i<8;i++) r.insertAdjacentHTML('beforeend',`<span class="tube">${tubeSvg(i)}</span>`); }
+function updateTubes(){
+  const r=$('tubes'); r.querySelectorAll('.tube').forEach((s,i)=>{ s.classList.toggle('done',i<state.idx||(i===state.idx&&state.solved)); s.classList.toggle('cur',i===state.idx); });
+  r.setAttribute('aria-label','Forschungsfortschritt: Aufgabe '+(state.idx+1)+' von 8');
+}
+function renderTask(){
+  const t=state.round.tasks[state.idx]; state.task=t; state.locked=false; state.solved=false; state.tries=0; conn=null;
+  $('overlay').innerHTML=''; $('btn-next').hidden=true; const hb=$('btn-hint'); hb.classList.remove('nudge'); hb.disabled=false;
+  clearTimers(); setFb('',''); const st=$('stage'); st.innerHTML='';
+  RENDER[t.k](t,st); updateTubes(); st.scrollTop=0;
+  const p=st.querySelector('.prompt'); if(p) p.focus({preventScroll:true});
+}
+function solve(head,text,speak){
+  state.locked=true; state.solved=true; setFb('ok',head,text);
+  if(speak){ $('fb').appendChild(speakBtn(()=>[speak],'Richtiges vorlesen')); }
+  const nb=$('btn-next'); nb.textContent=state.idx>=7?'Fertig':'Weiter'; nb.hidden=false; $('btn-hint').disabled=true; $('btn-hint').classList.remove('nudge');
+  updateTubes(); nb.focus({preventScroll:true});
+}
+function mkPrompt(html,sub,speak){
+  const p=el('div','prompt'); p.tabIndex=-1;
+  const d=el('div','',html+(sub?`<small>${esc(sub)}</small>`:'')); p.appendChild(d);
+  p.appendChild(speakBtn(()=>speak||d.textContent.replace(/\s+/g,' ').trim(),'Aufgabe vorlesen')); return p;
+}
+const q=s=>`<q>${esc(s)}</q>`;
+const GAP='<span class="gap" aria-label="Lücke">____</span>';
+function gapSentence(satz,word,repl){ const i=satz.indexOf(word); return esc(satz.slice(0,i))+repl+esc(satz.slice(i+word.length)); }
+const dispWord=ap=>ap.s==='bau'?ASM(ap.parts):ap.word;
+function finalText(ap){ return ap.s==='verl'?`${ap.form} → ${ap.word}`:ap.s==='abl'?`${ap.helper} → ${ap.word}`:ap.s==='silb'?`${ap.syl.join('-')} → ${ap.word}`:`${ap.parts.join(' + ')} → ${ASM(ap.parts)}`; }
+function mkBtn(cls,html,label){ const b=el('button',cls,html); b.type='button'; if(label) b.setAttribute('aria-label',label); return b; }
+function tryBtn(b){ b.classList.add('tried'); b.setAttribute('aria-disabled','true'); }
+function nextFocus(area){ const n=[...area.querySelectorAll('button')].find(x=>!x.classList.contains('tried')&&!x.classList.contains('used')); if(n) n.focus({preventScroll:true}); }
+
+/* ---------- Arrange: Karten in Fächer legen (Silben, Wortbausteine) ---------- */
+function arranger(host,cards,n,target,joiner,slotLabels,onDone){
+  const slots=el('div','slots'); slots.setAttribute('role','group'); slots.setAttribute('aria-label','Hier entsteht das Wort'); const pool=el('div','cards'); pool.setAttribute('role','group'); pool.setAttribute('aria-label','Karten zur Auswahl');
+  host.append(slots,pool); const put=Array(n).fill(null); const sb=[],cb=[]; let busy=false;
+  const redraw=()=>{ sb.forEach((s,i)=>{ const c=put[i]; s.className='slot'+(c!=null?' filled':''); s.innerHTML=(slotLabels&&slotLabels[i]?`<span class="rl">${esc(slotLabels[i])}</span>`:'')+(c!=null?esc(cards[c]):''); s.setAttribute('aria-label',c!=null?`Fach ${i+1}: ${cards[c]}. Zum Entfernen drücken.`:`Fach ${i+1}: leer`+(slotLabels&&slotLabels[i]?', '+slotLabels[i]:'')); });
+    cb.forEach((b,j)=>b.classList.toggle('used',put.includes(j))); };
+  for(let i=0;i<n;i++){ const s=mkBtn('slot','');  s.addEventListener('click',()=>{ if(state.locked||busy||put[i]==null) return; const j=put[i]; put[i]=null; redraw(); cb[j].focus({preventScroll:true}); }); slots.appendChild(s); sb.push(s); }
+  cards.forEach((c,j)=>{ const b=mkBtn('card',esc(c)); b.addEventListener('click',()=>{ if(state.locked||busy) return; const k=put.indexOf(null); if(k<0) return; put[k]=j; redraw(); nextFocus(pool);
+      if(!put.includes(null)){ const word=joiner(put.map(x=>cards[x]));
+        if(word===target){ state.locked=true; sb.forEach(s=>{ s.classList.add('ok'); s.disabled=true; }); onDone(); }
+        else { busy=true; sb.forEach(s=>s.classList.add('nope')); sb.forEach(s=>s.classList.add('shake')); badFb('Die Karten ergeben noch nicht das richtige Wort. Probiere eine andere Reihenfolge.');
+          after(900,()=>{ for(let i=0;i<n;i++) put[i]=null; sb.forEach(s=>s.classList.remove('nope','shake')); busy=false; redraw(); const f=pool.querySelector('button:not(.used)'); if(f) f.focus({preventScroll:true}); }); } } });
+    pool.appendChild(b); cb.push(b); });
+  redraw();
+}
+/* ---------- Schnitt setzen: Buchstaben antippen ---------- */
+function cutter(host,word,cuts,what,onDone){
+  const row=el('div','lets'); row.setAttribute('role','group'); row.setAttribute('aria-label',`Buchstaben von ${word}`); const bs=[]; const found=new Set();
+  [...word].forEach((ch,i)=>{ const b=mkBtn('let',esc(ch),`${ch}, Buchstabe ${i+1}`); b.addEventListener('click',()=>{ if(state.locked||b.classList.contains('cut')) return;
+      if(cuts.includes(i+1)){ found.add(i+1); b.classList.add('cut'); b.setAttribute('aria-label',`${ch}, hier endet ${what}`);
+        if(found.size===cuts.length){ state.locked=true; onDone(); } else setFb('ok','Das stimmt!','Suche weiter.'); }
+      else { b.classList.add('tried'); badFb(i===word.length-1?'Am Wortende ist nichts zu trennen.':`Dort endet ${what} noch nicht.`); } });
+    row.appendChild(b); bs.push(b); });
+  host.appendChild(row);
+}
+/* ---------- Anwenden einer Strategie (gemeinsam für alle Stationen) ---------- */
+function runApply(host,ap,o){
+  const L=o.L; let W=o.wordEl;
+  if((ap.s==='verl'||ap.s==='abl')&&!W){ W=el('div','wordbox'); W.setAttribute('role','img'); host.appendChild(W); }
+  const step=el('div','stepline'); const area=el('div','opts'); host.append(step,area);
+  const setWord=(pre,hole,suf,done)=>{ if(!W) return; W.innerHTML=`${esc(pre)}<span class="hole${done?' filled':''}">${esc(hole)}</span>${esc(suf)}`; W.setAttribute('aria-label',`${pre}${hole==='_'?' Lücke ':hole}${suf}`); };
+  const choose=(items,render,isRight,onRight,wrongMsg,cls)=>{ area.innerHTML=''; area.className='opts'+(cls?' '+cls:''); items.forEach(it=>{ const b=mkBtn('opt',render(it)); b.addEventListener('click',()=>{ if(state.locked||b.classList.contains('tried')) return; if(isRight(it)){ b.classList.add('ok'); onRight(); } else { tryBtn(b); badFb(wrongMsg); } }); area.appendChild(b); }); area.firstChild&&o.focus!==false&&area.firstChild.focus({preventScroll:true}); };
+  if(ap.s==='verl'){
+    setWord(ap.stem,'_','');
+    const s2=()=>{ step.innerHTML=`<span class="helperbox">Verlängert: <b>${esc(ap.form)}</b></span><br>Schritt 2: Welcher Buchstabe passt am Ende von ${esc(ap.stem)}_?`;
+      choose(ap.letters,x=>esc(x),x=>x===ap.ltr,()=>{ setWord(ap.stem,ap.ltr,'',true); state.locked=true; o.onDone(); },'Sprich die längere Form langsam. Welchen Buchstaben hörst du vor dem Endungs-e?','letters'); };
+    step.innerHTML='Schritt 1: Mach das Wort länger.';
+    choose(ap.forms,x=>esc(x),x=>x===ap.form,()=>{ say(ap.form); s2(); },'Das passt nicht. Die längere Form muss zum Wort passen. Sprich sie langsam.');
+  } else if(ap.s==='abl'){
+    setWord(ap.pre,'_',ap.suf);
+    const s2=()=>{ step.innerHTML=`<span class="helperbox">Verwandt: <b>${esc(ap.helper)}</b></span><br>Schritt 2: Welcher Buchstabe passt in die Lücke?`;
+      choose(ap.letters,x=>esc(x),x=>x===ap.okL,()=>{ setWord(ap.pre,ap.okL,ap.suf,true); state.locked=true; o.onDone(); },'Schau auf das verwandte Wort. Welchen Buchstaben hat es?','letters'); };
+    step.innerHTML='Schritt 1: Welches Wort ist mit dem Wort in der Lücke verwandt?';
+    choose(ap.opts,x=>esc(x),x=>x===ap.helper,()=>{ say(ap.helper); s2(); },'Das Wort gehört nicht zur gleichen Familie. Es muss ähnlich klingen und etwas Ähnliches bedeuten.');
+  } else if(ap.s==='silb'){
+    step.innerHTML='Sprich das Wort langsam in Silben. Setze die Silben richtig zusammen.';
+    arranger(host,ap.cards,ap.syl.length,ap.word,a=>a.join(''),null,()=>{ o.onDone(); });
+  } else {
+    step.innerHTML='Baue das Wort aus den Bausteinen. Suche zuerst den Wortstamm.';
+    const lab=ap.labels||L<2?ap.parts.map((p,i)=>roleName(p,ap.roles[i])):null;
+    arranger(host,ap.cards,ap.parts.length,ASM(ap.parts),a=>ASM(a),lab,()=>{ o.onDone(); });
+  }
+}
+const ARTICLE={Vorsilbe:'die',Wortstamm:'den',Endung:'die',Nachsilbe:'die',Wortteil:'den'};
+
+/* ---------- 1 Verlängerung ---------- */
+function rVerl(t,st){
+  if(t.v==='conn') return rConn(t,st,'Verbinde jedes Wort mit seiner längeren Form.');
+  const sp='Mach das Wort länger. Dann hörst du den Buchstaben am Ende.';
+  st.appendChild(mkPrompt('Mach das Wort länger.','Dann hörst du den Buchstaben am Ende.',sp));
+  if(t.example) st.appendChild(el('div','example',`Beispiel: ${esc(t.example.w)} → ${esc(t.example.form)}. So hörst du den Buchstaben.`));
+  const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:clamp(.4rem,1.6dvh,1rem);width:100%';
+  let wordEl=null;
+  if(t.v==='sent'){ const s=el('div','sentence'); s.setAttribute('role','text'); s.innerHTML=gapSentence(t.satz,t.word,`<span class="wordbox" role="img"></span>`); st.appendChild(s); wordEl=s.querySelector('.wordbox'); }
+  else { const s=el('div','sentence',gapSentence(t.satz,t.word,GAP)); st.appendChild(s); }
+  st.appendChild(host);
+  runApply(host,applyShape(t,'verl'),{L:t.L,wordEl,onDone:()=>{ solve('Richtig!',`${t.form}: ${t.ok.split(': ')[1]}`,t.satz); fillSent(st,t); }});
+}
+function fillSent(st,t){ const g=st.querySelector('.sentence'); if(g&&t.satz) g.innerHTML=gapSentence(t.satz,t.word,`<b class="bigfix">${esc(t.word)}</b>`); }
+/* ---------- 2 Ableiten ---------- */
+function rAbl(t,st){
+  if(t.v==='conn') return rConn(t,st,'Verbinde jedes Wort mit einem verwandten Wort.');
+  st.appendChild(mkPrompt('Finde ein verwandtes Wort und ergänze die Lücke.','Das verwandte Wort zeigt dir den Buchstaben.','Finde ein verwandtes Wort und ergänze die Lücke. Das verwandte Wort zeigt dir den Buchstaben.'));
+  const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:clamp(.4rem,1.6dvh,1rem);width:100%'; let wordEl=null;
+  if(t.v==='sent'){ const s=el('div','sentence'); s.innerHTML=gapSentence(t.satz,t.word,`<span class="wordbox" role="img"></span>`); st.appendChild(s); wordEl=s.querySelector('.wordbox'); }
+  else st.appendChild(el('div','sentence',gapSentence(t.satz,t.word,GAP)));
+  st.appendChild(host);
+  runApply(host,applyShape(t,'abl'),{L:t.L,wordEl,onDone:()=>{ solve('Richtig!',t.ok.split(': ').slice(1).join(': '),t.satz); fillSent(st,t); }});
+}
+/* ---------- 3 Silben ---------- */
+function rSilb(t,st){
+  if(t.v==='halves') return rConn(t,st,'Welche beiden Silben passen zusammen? Verbinde sie zu einem Wort.');
+  if(t.v==='order'){
+    st.appendChild(mkPrompt('Setze die Silben zu einem Wort zusammen.','Klatsche das Wort in Silben.','Setze die Silben zu einem Wort zusammen.'));
+    st.appendChild(el('div','sentence',gapSentence(t.satz,t.word,GAP)));
+    const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:clamp(.5rem,1.8dvh,1rem);width:100%'; st.appendChild(host);
+    arranger(host,t.cards,t.syl.length,t.word,a=>a.join(''),null,()=>{ solve('Richtig!',t.ok,t.satz); st.querySelector('.sentence').innerHTML=gapSentence(t.satz,t.word,`<b class="bigfix">${esc(t.word)}</b>`); });
+  } else if(t.v==='cut'){
+    st.appendChild(mkPrompt('Wo endet eine Silbe?','Tippe auf den Buchstaben, nach dem eine Silbe endet.','Wo endet eine Silbe? Tippe auf den Buchstaben, nach dem eine Silbe endet.'));
+    const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%'; st.appendChild(host);
+    st.appendChild(el('div','legend',`Das Wort hat ${t.syl.length} Silben.`));
+    cutter(host,t.word,t.cuts,'eine Silbe',()=>{ solve('Richtig getrennt!',t.ok,t.word); });
+  } else {
+    st.appendChild(mkPrompt('Welche Schreibweise passt in den Satz?','Sprich das Wort langsam in Silben.','Welche Schreibweise passt in den Satz? Sprich das Wort langsam in Silben.'));
+    const s=el('div','sentence',gapSentence(t.satz,t.word,GAP)); st.appendChild(s);
+    const o=el('div','opts'); o.setAttribute('role','group'); o.setAttribute('aria-label','Schreibweisen zur Auswahl');
+    t.opts.forEach(w=>{ const b=mkBtn('opt',esc(w)); b.addEventListener('click',()=>{ if(state.locked||b.classList.contains('tried')) return; if(w===t.word){ b.classList.add('ok'); s.innerHTML=gapSentence(t.satz,t.word,`<b class="bigfix">${esc(t.word)}</b>`); solve('Richtig!',t.ok,t.satz); } else { tryBtn(b); badFb('Sprich das Wort langsam in Silben. Wie endet die erste Silbe?'); } }); o.appendChild(b); });
+    st.appendChild(o);
+  }
+}
+/* ---------- 4 Wortbausteine ---------- */
+function rBau(t,st){
+  if(t.v==='build'){
+    st.appendChild(mkPrompt('Baue ein Wort aus den Bausteinen.','Suche zuerst den Wortstamm. Nicht jede Karte wird gebraucht.','Baue ein Wort aus den Bausteinen. Suche zuerst den Wortstamm. Nicht jede Karte wird gebraucht.'));
+    const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:clamp(.5rem,1.8dvh,1rem);width:100%'; st.appendChild(host);
+    const lab=t.labels?t.parts.map((p,i)=>roleName(p,t.roles[i])):null;
+    arranger(host,t.cards,t.parts.length,ASM(t.parts),a=>ASM(a),lab,()=>{ solve('Richtig gebaut!',t.ok,ASM(t.parts)); });
+  } else if(t.v==='cut'){
+    st.appendChild(mkPrompt('Wo endet ein Baustein?','Tippe auf den Buchstaben, nach dem ein Wortbaustein endet.','Wo endet ein Baustein? Tippe auf den Buchstaben, nach dem ein Wortbaustein endet.'));
+    const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%'; st.appendChild(host);
+    st.appendChild(el('div','legend',`Das Wort hat ${t.parts.length} Bausteine.`));
+    cutter(host,t.word,t.cuts,'ein Baustein',()=>{ solve('Richtig zerlegt!',t.ok,t.word); });
+  } else {
+    const nm=t.askedName, art=ARTICLE[nm]||'den';
+    st.appendChild(mkPrompt(`Welcher Baustein ist ${art==='den'?'der':'die'} ${nm}?`,'Tippe auf den Baustein.',`Welcher Baustein ist ${art==='den'?'der':'die'} ${nm}?`));
+    st.appendChild(el('div','stepline',`Das Wort heißt <b>${esc(ASM(t.parts))}</b>.`));
+    const o=el('div','opts'); o.setAttribute('role','group'); o.setAttribute('aria-label','Bausteine'); const bs=[];
+    t.parts.forEach((p,i)=>{ const b=mkBtn('card',esc(p)); b.addEventListener('click',()=>{ if(state.locked||b.classList.contains('tried')) return; if(i===t.ans){ b.classList.add('ok'); solve('Genau!',t.ok,ASM(t.parts)); } else { tryBtn(b); badFb(nm==='Wortstamm'?'Der Wortstamm trägt die Grundbedeutung des Wortes.':nm==='Vorsilbe'?'Eine Vorsilbe steht ganz vorn vor dem Wortstamm.':'Eine '+nm+' steht hinten, nach dem Wortstamm.'); } }); o.appendChild(b); bs.push(b); });
+    st.appendChild(o);
+  }
+}
+/* ---------- Strategie wählen (Fehlerdetektor, Strategiezentrale) ---------- */
+function chooseStrategy(host,t,onRight){
+  const row=el('div','stratrow'); row.setAttribute('role','group'); row.setAttribute('aria-label','Strategien');
+  const info=el('div','stepline',t.named?'Hier hilft diese Strategie:':'Welche Strategie hilft hier?'); host.append(info,row);
+  t.stratOpts.forEach(s=>{ const S=STRATS[s]; const b=mkBtn('sbtn',`${stratSvg(s)}<span>${esc(S.name)}<small>${esc(S.ex)}</small></span>`);
+    b.addEventListener('click',()=>{ if(state.locked||b.classList.contains('tried')) return;
+      if(s===t.strat){ b.classList.add('ok'); [...row.children].forEach(x=>{ if(x!==b) x.disabled=true; }); info.innerHTML=`<span class="chosen">${stratSvg(s)}${esc(STRATS[s].ing)}</span>`; setFb('ok','Gute Wahl!',STRATS[s].help); onRight(); }
+      else { tryBtn(b); badFb('Diese Strategie passt nicht zu dieser Stelle. '+hintFor(s,t)); } });
+    row.appendChild(b); });
+  if(t.named) { row.firstChild.focus({preventScroll:true}); }
+  else row.firstChild.focus({preventScroll:true});
+}
+const hintFor=(s,t)=>({verl:'Sie hilft bei Buchstaben am Wortende.',abl:'Sie hilft bei ä, äu und e, eu.',silb:'Sie hilft bei den Konsonanten in der Wortmitte.',bau:'Sie hilft bei Vorsilben und Nachsilben.'}[s]);
+/* ---------- 5 Fehlerdetektor ---------- */
+function rFehl(t,st){
+  st.appendChild(mkPrompt('Ein Wort ist falsch geschrieben. Tippe darauf.','Lies den Satz langsam.','Ein Wort ist falsch geschrieben. Tippe darauf. Lies den Satz langsam.'));
+  const sent=el('div','sentence'); sent.setAttribute('role','group'); sent.setAttribute('aria-label','Satz mit einem Fehler'); const tb=[];
+  t.tokens.forEach((tk,i)=>{ const b=mkBtn('tok',esc(tk)); b.addEventListener('click',()=>{ if(state.locked||state.phase!=='find'||b.classList.contains('tried')) return;
+      if(i===t.idx){ state.phase='strat'; b.classList.add('found'); b.setAttribute('aria-label',tk+', falsch geschrieben'); setFb('ok','Gefunden!','Hier ist ein Fehler. Jetzt untersuchen wir das Wort.'); phase2(); }
+      else { tryBtn(b); badFb('Dieses Wort ist richtig geschrieben.'); } }); sent.appendChild(b); tb.push(b); });
+  st.appendChild(sent); const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:clamp(.4rem,1.6dvh,.9rem);width:100%'; st.appendChild(host); state.phase='find';
+  const phase2=()=>{ tb.forEach((b,i)=>{ if(i!==t.idx) b.disabled=true; });
+    chooseStrategy(host,t,()=>{ state.phase='apply'; const ah=el('div',''); ah.style.cssText='display:flex;flex-direction:column;align-items:center;gap:clamp(.4rem,1.6dvh,.9rem);width:100%'; host.appendChild(ah);
+      runApply(ah,t.ap,{L:t.L,onDone:()=>{ const b=tb[t.idx]; b.classList.remove('found'); b.classList.add('fixed'); b.textContent=t.right+t.punct; b.setAttribute('aria-label',t.right+', verbessert'); tb.forEach(x=>x.disabled=true); solve('Verbessert!',`${t.wrong} → ${t.right}`,t.fixed); }}); }); };
+}
+/* ---------- 6 Strategiezentrale ---------- */
+function rStrat(t,st){
+  st.appendChild(mkPrompt('Welche Strategie hilft hier?','Schau dir die Stelle genau an. Dann wende die Strategie an.','Welche Strategie hilft hier? Schau dir die Stelle genau an. Dann wende die Strategie an.'));
+  const pr=el('div','probe'); pr.innerHTML='<div class="stepline">'+esc(t.text).replace('{P}',`<b class="wordbox" style="display:inline-flex;font-size:inherit;padding:0 .5rem;min-height:0">${esc(t.probe)}</b>`)+'</div>'; st.appendChild(pr);
+  const host=el('div',''); host.style.cssText='display:flex;flex-direction:column;align-items:center;gap:clamp(.4rem,1.6dvh,.9rem);width:100%'; st.appendChild(host);
+  chooseStrategy(host,t,()=>{ const ah=el('div',''); ah.style.cssText=host.style.cssText; host.appendChild(ah);
+    runApply(ah,t.ap,{L:t.L,onDone:()=>{ solve('Strategie angewendet!',finalText(t.ap),dispWord(t.ap)); }}); });
+}
+/* ---------- Verbinden (Halbe Silben, verlängerte Formen, verwandte Wörter) ---------- */
+let conn=null;
+const LINKCOL=['#cfe3e5','#f6dcde','#faecb9'], LINKSTROKE=['#2f6f7a','#d98a92','#c99a1f'];
+function rConn(t,st,head){
+  st.appendChild(mkPrompt(head,'Tippe links ein Feld und rechts das passende Feld.',head+' Tippe links ein Feld und rechts das passende Feld.'));
+  const c=el('div','conn'), L=el('div','col'), R=el('div','col'); c.append(L,R);
+  c.insertAdjacentHTML('beforeend','<svg class="lines" aria-hidden="true"></svg>');
+  const lp=[],rp=[];
+  const mk=(side,text,i)=>{ const w=el('div','pw '+side); const b=mkBtn('port '+side,esc(text)); w.appendChild(b); b.addEventListener('click',()=>onPort(side,i)); return [w,b]; };
+  t.left.forEach((pi,i)=>{ const [w,b]=mk('left',t.pairs[pi].l,i); L.appendChild(w); lp.push(b); });
+  t.right.forEach((pj,j)=>{ const [w,b]=mk('right',t.pairs[pj].r,j); R.appendChild(w); rp.push(b); });
+  st.appendChild(c); lp[0].focus({preventScroll:true});
+  conn={t,c,lp,rp,sel:null,links:[],svg:c.querySelector('.lines')};
+}
+function portPt(b,side){ const c=conn.c.getBoundingClientRect(), r=b.getBoundingClientRect(); return [(side==='left'?r.right:r.left)-c.left+(side==='left'?-2:2), r.top+r.height/2-c.top]; }
+function drawLink(l,animate){
+  const a=portPt(conn.lp[l.i],'left'), b=portPt(conn.rp[l.j],'right'), dx=(b[0]-a[0])*.5;
+  const d=`M${a[0]} ${a[1]} C${a[0]+dx} ${a[1]} ${b[0]-dx} ${b[1]} ${b[0]} ${b[1]}`;
+  let p=l.el; if(!p){ p=document.createElementNS('http://www.w3.org/2000/svg','path'); conn.svg.appendChild(p); l.el=p; }
+  p.setAttribute('d',d); p.setAttribute('stroke',l.col); p.style.setProperty('--len',String(Math.ceil(p.getTotalLength()+2))); p.style.animation=animate&&!reduceMotion()?'':'none';
+}
+function onResizeGame(){ if(conn) conn.links.forEach(l=>drawLink(l,false)); }
+function onPort(side,idx){
+  if(state.locked||!conn) return; const C=conn, bt=side==='left'?C.lp[idx]:C.rp[idx]; if(bt.classList.contains('linked')) return;
+  if(!C.sel||C.sel.side===side){ if(C.sel){ (C.sel.side==='left'?C.lp:C.rp)[C.sel.idx].classList.remove('sel'); } if(C.sel&&C.sel.side===side&&C.sel.idx===idx){ C.sel=null; return; } C.sel={side,idx}; bt.classList.add('sel'); return; }
+  const li=side==='left'?idx:C.sel.idx, rj=side==='right'?idx:C.sel.idx, lb=C.lp[li], rb=C.rp[rj];
+  lb.classList.remove('sel'); rb.classList.remove('sel'); C.sel=null;
+  if(C.t.left[li]===C.t.right[rj]){
+    const n=C.links.length; [lb,rb].forEach(x=>{ x.classList.add('linked'); x.style.setProperty('--c',LINKCOL[n%3]); x.setAttribute('aria-disabled','true'); });
+    const l={i:li,j:rj,col:LINKSTROKE[n%3]}; C.links.push(l); drawLink(l,true);
+    if(C.links.length===C.t.pairs.length) solve('Richtig verbunden!',C.t.ok,null); else setFb('ok','Richtig verbunden!','');
+  } else { [lb,rb].forEach(x=>x.classList.add('nope')); lb.classList.add('shake'); rb.classList.add('shake'); after(650,()=>{ [lb,rb].forEach(x=>x.classList.remove('nope','shake')); }); badFb('Das passt nicht zusammen. Prüfe noch einmal.'); }
+}
+const RENDER={verl:rVerl,abl:rAbl,silb:rSilb,bau:rBau,fehl:rFehl,strat:rStrat};
+
+/* ---------- Ende ---------- */
+function showEnd(){
+  stopSay(); const md=state.mode, mix=md===7; const ov=$('overlay'); const title=mix?'Rechtschreib-Experiment gelungen!':'Experiment geschafft!';
+  const e=el('div','endp'); e.setAttribute('role','dialog'); e.setAttribute('aria-modal','true'); e.setAttribute('aria-labelledby','end-t');
+  const kids=[['cheer','a'],['hold','e'],['cheer','d']].map(k=>labKid(k[0],k[1])).join('');
+  e.innerHTML=`<div class="kids">${kids}</div><div class="fl">${FLASK_BIG}</div><h2 id="end-t" tabindex="-1">${title}</h2><p>Du hast alle 8 Aufgaben gelöst.</p><div class="btns"><button class="btn" id="end-again" type="button">Noch eine Runde</button><button class="btn sec" id="end-back" type="button">Zurück zur Auswahl</button></div>`;
+  ov.innerHTML=''; ov.appendChild(e); state.idx=7; state.solved=true; updateTubes();
+  $('end-again').addEventListener('click',startRound); $('end-back').addEventListener('click',backToMap);
+  $('end-again').focus(); $('live').textContent=title;
+}
+function init(){
+  buildMap(); applySound();
+  $('btn-help').addEventListener('click',openHelp); $('btn-help2').addEventListener('click',openHelp);
+  $('btn-sound').addEventListener('click',toggleSound); $('btn-sound2').addEventListener('click',toggleSound);
+  $('btn-back').addEventListener('click',backToMap);
+  $('dl-cancel').addEventListener('click',()=>$('dlg-level').close()); $('dh-close').addEventListener('click',()=>$('dlg-help').close());
+  $('btn-test').addEventListener('click',()=>{ say('Hallo! Das ist ein Test. Das Rechtschreib-Labor spricht deutsch.'); $('voice-info').textContent=voiceInfo(); });
+  $('btn-hint').addEventListener('click',()=>{ const t=state.task; if(!t||state.locked) return; const extra=(t.hint2&&state.tries>=2)?' '+t.hint2:''; setFb('hint','Tipp:',t.hint+extra); });
+  $('btn-next').addEventListener('click',()=>{ if(!state.solved) return; if(state.idx>=7){ showEnd(); return; } state.idx++; renderTask(); });
+  ['dlg-level','dlg-help'].forEach(id=>$(id).addEventListener('click',e=>{ if(e.target===$(id)) $(id).close(); }));
+  window.addEventListener('resize',()=>{ clearTimeout(window.__lr); window.__lr=setTimeout(()=>{ if(state.inGame) onResizeGame(); },120); });
+  if(/qa/.test(location.hash)) window.__rl={state,MODES,makeRound,validateTask,renderTask,startGame,startRound,get conn(){return conn;},STRATS,VERL,ABL,SILB,BAU,FEHL};
+}
+let __inited=false; const initOnce=()=>{ if(__inited) return; __inited=true; init(); };
+document.addEventListener('DOMContentLoaded',initOnce);
+if(document.readyState!=='loading') initOnce();
+
+</script>
+</body>
+</html>
